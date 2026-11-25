@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-Hant" data-view="zh">
+<html lang="en" data-view="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -245,8 +245,8 @@
 <header class="toolbar">
   <div class="brand"><span class="zh">人工智能部分（試行版）</span><span class="en">AI section · trial version</span></div>
   <div class="switch" role="group" aria-label="Language">
-    <button type="button" data-view="zh" aria-pressed="true">中文</button>
-    <button type="button" data-view="en" aria-pressed="false">English</button>
+    <button type="button" data-view="en" aria-pressed="true">English</button>
+    <button type="button" data-view="zh" aria-pressed="false">中文</button>
   </div>
 </header>
 
@@ -1048,13 +1048,13 @@
   var gradeButtons = document.querySelectorAll("[data-grade]");
 
   function setView(view) {
-    if (view !== "zh" && view !== "en") view = "zh";
+    if (view !== "zh" && view !== "en") view = "en";
     root.dataset.view = view;
     root.lang = view === "en" ? "en" : "zh-Hant";
     viewButtons.forEach(function (b) {
       b.setAttribute("aria-pressed", b.dataset.view === view ? "true" : "false");
     });
-    try { localStorage.setItem("iit-ai-view", view); } catch (e) {}
+    try { localStorage.setItem("iit-ai-lang", view); } catch (e) {}
   }
 
   function setGrade(grade) {
@@ -1070,8 +1070,8 @@
   }
 
   var saved = null;
-  try { saved = localStorage.getItem("iit-ai-view"); } catch (e) {}
-  setView(saved === "en" ? "en" : "zh");
+  try { saved = localStorage.getItem("iit-ai-lang"); } catch (e) {}
+  setView(saved === "zh" ? "zh" : "en");
   viewButtons.forEach(function (b) {
     b.addEventListener("click", function () { setView(b.dataset.view); });
   });
