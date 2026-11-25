@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-Hant" data-view="both">
+<html lang="zh-Hant" data-view="zh">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -73,7 +73,7 @@
     color: #f6f1e6;
     padding: 3.2rem 1.25rem 4.2rem;
   }
-  .wrap { max-width: 1080px; margin: 0 auto; }
+  .wrap { max-width: 760px; margin: 0 auto; }
   .eyebrow {
     margin: 0 0 0.8rem;
     letter-spacing: 0.18em;
@@ -89,10 +89,10 @@
   .trial { font-weight: 560; }
   .framework { margin: 1rem 0 0; color: #e7eef6; }
   .framework .en { margin-top: 0.15rem; color: #d5e4f2; }
-  .lede { margin: 1.1rem 0 0; max-width: 46rem; color: #e7eef4; font-size: 0.98rem; }
-  .lede .en { color: #c5d4e2; margin-top: 0.25rem; }
+  .source { margin: 1.2rem 0 0; font-size: 0.95rem; }
+  .source a { color: #f3e2b0; }
   .sheet {
-    max-width: 1080px;
+    max-width: 760px;
     margin: -2.2rem auto 3rem;
     background: var(--sheet);
     border: 1px solid #eadfce;
@@ -126,31 +126,8 @@
   }
   h2 .en, h3 .en { display: block; font-weight: 600; color: var(--navy-2); }
   h2 .en { font-size: 1rem; margin-top: 0.12rem; }
-  .pair {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.35rem 1.8rem;
-    align-items: start;
-  }
   .pair + .pair { margin-top: 0.95rem; }
   .pair p { margin: 0; }
-  .en { color: var(--en); }
-  html[data-view="both"] .pair.lead .zh::before,
-  html[data-view="both"] .pair.lead .en::before {
-    display: block;
-    margin-bottom: 0.3rem;
-    font-size: 0.72rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--gold);
-    font-weight: 750;
-  }
-  html[data-view="both"] .pair.lead .zh::before { content: "中文"; }
-  html[data-view="both"] .pair.lead .en::before { content: "English"; }
-  html[data-view="both"] .pair .en {
-    border-left: 1px solid var(--line);
-    padding-left: 1.15rem;
-  }
   .stages, .map { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; margin-top: 1rem; }
   .stage, .map-cell, .year, .card, .principle {
     background: #fff;
@@ -205,7 +182,7 @@
     white-space: nowrap;
   }
   .card h4 { margin: 0 0 0.55rem; font-size: 1.05rem; line-height: 1.45; }
-  .label { margin: 0; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); font-weight: 750; }
+  .label { margin: 0; font-size: 0.82rem; color: var(--gold); font-weight: 700; }
   .acts { list-style: none; padding: 0; margin: 0.35rem 0 0.4rem; }
   .acts > li { padding: 0.55rem 0; border-top: 1px solid var(--line); }
   .acts ul { margin: 0.35rem 0 0.1rem 1.1rem; padding: 0; }
@@ -216,7 +193,7 @@
   .year ol { margin: 0; padding: 0 0 0.5rem; list-style: none; }
   .year li { padding: 0.5rem 0; border-top: 1px solid var(--line); }
   .table-scroll { overflow-x: auto; margin-top: 0.9rem; border: 1px solid var(--line); border-radius: 12px; }
-  table { width: 100%; border-collapse: collapse; min-width: 880px; background: #fff; }
+  table { width: 100%; border-collapse: collapse; background: #fff; }
   th, td { border-bottom: 1px solid var(--line); padding: 0.75rem 0.8rem; vertical-align: top; text-align: left; }
   th { background: var(--navy); color: #f6f1e6; font-weight: 680; }
   th .en { color: #d5e2ee; font-weight: 500; font-size: 0.82rem; }
@@ -227,7 +204,7 @@
   .tag { display: inline-block; font-size: 0.78rem; font-weight: 750; color: var(--red); margin-bottom: 0.1rem; }
   .note { margin: 0; }
   footer {
-    max-width: 1080px;
+    max-width: 760px;
     margin: 0 auto 2.5rem;
     color: var(--muted);
     font-size: 0.9rem;
@@ -236,35 +213,20 @@
   footer a { color: var(--navy); }
   html[data-view="zh"] .en { display: none !important; }
   html[data-view="en"] .zh { display: none !important; }
-  html[data-view="zh"] .pair,
-  html[data-view="en"] .pair { grid-template-columns: 1fr; }
-  html[data-view="zh"] .pair .en,
-  html[data-view="en"] .pair .en { border: 0; padding: 0; }
-  html[data-view="en"] h1 .en,
-  html[data-view="en"] h2 .en,
-  html[data-view="en"] .card h4 .en,
-  html[data-view="en"] .topic > h3 .en,
-  html[data-view="en"] .year h3 .en {
-    font-size: inherit;
+  html[data-view="en"] .en {
     color: inherit;
+    font-size: inherit;
     font-weight: inherit;
+    margin-top: 0;
   }
-  html[data-view="en"] h1 .en { font-size: clamp(1.8rem, 4vw, 2.7rem); color: #f6f1e6; }
-  html[data-view="en"] .lede .en,
-  html[data-view="en"] .framework .en { color: #e7eef4; font-size: inherit; }
+  html[data-view="en"] h1 .en { font-size: clamp(1.8rem, 4vw, 2.55rem); color: #f6f1e6; }
+  html[data-view="en"] .framework .en,
+  html[data-view="en"] .eyebrow .en { color: #e7eef4; }
+  html[data-view="en"] .source a { color: #f3e2b0; }
+  html[data-view="en"] th .en { color: #f6f1e6; }
+  .grade .zh, .grade .en { display: inline; margin: 0; }
   @media (max-width: 860px) {
-    .pair, .stages, .map, .years { grid-template-columns: 1fr; }
-    html[data-view="both"] .pair .en { border-left: 0; padding-left: 0; }
-    html[data-view="both"] .pair .en::before {
-      content: "English";
-      display: block;
-      margin-bottom: 0.25rem;
-      font-size: 0.72rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--gold);
-      font-weight: 750;
-    }
+    .stages, .map, .years { grid-template-columns: 1fr; }
     .sheet { margin-top: -1.4rem; padding: 1rem 0.9rem 2rem; }
     .toolbar { align-items: flex-start; flex-direction: column; }
   }
@@ -283,8 +245,7 @@
 <header class="toolbar">
   <div class="brand"><span class="zh">人工智能部分（試行版）</span><span class="en">AI section · trial version</span></div>
   <div class="switch" role="group" aria-label="Language">
-    <button type="button" data-view="both" aria-pressed="true">中英對照</button>
-    <button type="button" data-view="zh" aria-pressed="false">中文</button>
+    <button type="button" data-view="zh" aria-pressed="true">中文</button>
     <button type="button" data-view="en" aria-pressed="false">English</button>
   </div>
 </header>
@@ -300,23 +261,20 @@
       <span class="zh">小學資訊與創新科技課程框架</span>
       <span class="en">Primary Information and Innovation Technology Curriculum Framework</span>
     </p>
-    <p class="lede">
-      <span class="zh">本頁把課程文件整理為中英對照，方便教師查閱。中文依原文；英文為對照譯文。</span>
-      <span class="en">This page sets the curriculum text out in parallel Chinese and English. The Chinese follows the source. The English is a parallel translation for teachers.</span>
-    </p>
+    <p class="source"><a href="https://www.edb.gov.hk/tc/curriculum-development/kla/technology-edu/curriculum-doc/index.html" target="_blank" rel="noopener noreferrer"><span class="zh">來源：教育局課程文件</span><span class="en">Source: Education Bureau curriculum documents</span></a></p>
   </div>
 </header>
 
 <main class="sheet" id="top">
   <nav class="toc" aria-label="Contents">
-    <a href="#background"><span class="zh">背景</span><span class="en"> Background</span></a>
-    <a href="#promote"><span class="zh">小學階段</span><span class="en"> Primary</span></a>
-    <a href="#links"><span class="zh">計算思維</span><span class="en"> Computational thinking</span></a>
-    <a href="#values"><span class="zh">科技向善</span><span class="en"> Technology for good</span></a>
-    <a href="#topics"><span class="zh">課題範圍</span><span class="en"> Topics</span></a>
-    <a href="#outcomes"><span class="zh">學習重點</span><span class="en"> Learning focuses</span></a>
-    <a href="#by-grade"><span class="zh">各年級</span><span class="en"> By year</span></a>
-    <a href="#alignment"><span class="zh">學習架構對照</span><span class="en"> Framework map</span></a>
+    <a href="#background"><span class="zh">背景</span><span class="en">Background</span></a>
+    <a href="#promote"><span class="zh">小學階段</span><span class="en">Primary</span></a>
+    <a href="#links"><span class="zh">計算思維</span><span class="en">Computational thinking</span></a>
+    <a href="#values"><span class="zh">科技向善</span><span class="en">Technology for good</span></a>
+    <a href="#topics"><span class="zh">課題範圍</span><span class="en">Topics</span></a>
+    <a href="#outcomes"><span class="zh">學習重點</span><span class="en">Learning focuses</span></a>
+    <a href="#by-grade"><span class="zh">各年級</span><span class="en">By year</span></a>
+    <a href="#alignment"><span class="zh">學習架構對照</span><span class="en">Framework map</span></a>
   </nav>
 
   <section id="background">
@@ -460,19 +418,19 @@
       <p class="en">Below are the learning focuses for each topic, with suggested learning and teaching activities. The focuses are connected, so schools should plan the curriculum and the arrangements as a whole.</p>
     </div>
     <div class="filters" role="group" aria-label="Filter by year">
-      <button type="button" data-grade="all" aria-pressed="true">全部 · All</button>
-      <button type="button" data-grade="2" aria-pressed="false">小二 · P2</button>
-      <button type="button" data-grade="3" aria-pressed="false">小三 · P3</button>
-      <button type="button" data-grade="4" aria-pressed="false">小四 · P4</button>
-      <button type="button" data-grade="5" aria-pressed="false">小五 · P5</button>
-      <button type="button" data-grade="6" aria-pressed="false">小六 · P6</button>
+      <button type="button" data-grade="all" aria-pressed="true"><span class="zh">全部</span><span class="en">All</span></button>
+      <button type="button" data-grade="2" aria-pressed="false"><span class="zh">小二</span><span class="en">P2</span></button>
+      <button type="button" data-grade="3" aria-pressed="false"><span class="zh">小三</span><span class="en">P3</span></button>
+      <button type="button" data-grade="4" aria-pressed="false"><span class="zh">小四</span><span class="en">P4</span></button>
+      <button type="button" data-grade="5" aria-pressed="false"><span class="zh">小五</span><span class="en">P5</span></button>
+      <button type="button" data-grade="6" aria-pressed="false"><span class="zh">小六</span><span class="en">P6</span></button>
     </div>
 
     <div class="topic" id="topic-a">
       <h3><span class="code">A</span><span class="zh">生活中的人工智能</span><span class="en">AI in everyday life</span></h3>
       <div class="cards">
         <article class="card" data-grade="2">
-          <header><span class="code">A</span><span class="grade">小二 · P2</span></header>
+          <header><span class="code">A</span><span class="grade"><span class="zh">小二</span><span class="en">P2</span></span></header>
           <h4><span class="zh">列舉生活中人工智能應用的例子</span><span class="en">Give examples of AI applications in everyday life</span></h4>
           <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
           <ul class="acts">
@@ -482,7 +440,7 @@
           </ul>
         </article>
         <article class="card" data-grade="3">
-          <header><span class="code">A</span><span class="grade">小三 · P3</span></header>
+          <header><span class="code">A</span><span class="grade"><span class="zh">小三</span><span class="en">P3</span></span></header>
           <h4><span class="zh">辨識非人工智能的資訊科技與人工智能的分別</span><span class="en">Tell non-AI information technology apart from AI</span></h4>
           <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
           <ul class="acts">
@@ -492,7 +450,7 @@
           </ul>
         </article>
         <article class="card" data-grade="4">
-          <header><span class="code">A</span><span class="grade">小四 · P4</span></header>
+          <header><span class="code">A</span><span class="grade"><span class="zh">小四</span><span class="en">P4</span></span></header>
           <h4><span class="zh">認識資訊科技和人工智能如何改善生活</span><span class="en">See how IT and AI can improve life</span></h4>
           <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
           <ul class="acts">
@@ -508,7 +466,7 @@
       <h3><span class="code">B</span><span class="zh">人工智能的能力與發展</span><span class="en">What AI can do, and how it has developed</span></h3>
       <div class="cards">
         <article class="card" data-grade="2">
-          <header><span class="code">B</span><span class="grade">小二 · P2</span></header>
+          <header><span class="code">B</span><span class="grade"><span class="zh">小二</span><span class="en">P2</span></span></header>
           <h4><span class="zh">簡單認識「智能」的概念（學習和作出決定）</span><span class="en">Gain a simple idea of “intelligence” (learning and making decisions)</span></h4>
           <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
           <ul class="acts">
@@ -517,7 +475,7 @@
           </ul>
         </article>
         <article class="card" data-grade="3">
-          <header><span class="code">B</span><span class="grade">小三 · P3</span></header>
+          <header><span class="code">B</span><span class="grade"><span class="zh">小三</span><span class="en">P3</span></span></header>
           <h4><span class="zh">認識人工智能的基本能力和應用</span><span class="en">Know the basic abilities of AI and how they are used</span></h4>
           <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
           <ul class="acts">
@@ -535,7 +493,7 @@
           </ul>
         </article>
         <article class="card" data-grade="4">
-          <header><span class="code">B</span><span class="grade">小四 · P4</span></header>
+          <header><span class="code">B</span><span class="grade"><span class="zh">小四</span><span class="en">P4</span></span></header>
           <h4><span class="zh">認識人工智能的演進，包括資訊和通訊科技的進步如何推動人工智能的發展</span><span class="en">Know how AI has developed, including how progress in information and communication technology has driven that development</span></h4>
           <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
           <ul class="acts">
@@ -545,7 +503,7 @@
           </ul>
         </article>
         <article class="card" data-grade="5">
-          <header><span class="code">B</span><span class="grade">小五 · P5</span></header>
+          <header><span class="code">B</span><span class="grade"><span class="zh">小五</span><span class="en">P5</span></span></header>
           <h4><span class="zh">初步認識影響人工智能效能的三大要素，包括數據、算法和算力</span><span class="en">Begin to know the three factors that affect how well AI performs: data, algorithms, and computing power</span></h4>
           <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
           <ul class="acts">
@@ -555,7 +513,7 @@
           </ul>
         </article>
         <article class="card" data-grade="5">
-          <header><span class="code">B</span><span class="grade">小五 · P5</span></header>
+          <header><span class="code">B</span><span class="grade"><span class="zh">小五</span><span class="en">P5</span></span></header>
           <h4><span class="zh">認識人工智能如何收集數據</span><span class="en">Know how AI collects data</span></h4>
           <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
           <ul class="acts">
@@ -565,7 +523,7 @@
           </ul>
         </article>
         <article class="card" data-grade="5">
-          <header><span class="code">B</span><span class="grade">小五 · P5</span></header>
+          <header><span class="code">B</span><span class="grade"><span class="zh">小五</span><span class="en">P5</span></span></header>
           <h4><span class="zh">認識人工智能自動化</span><span class="en">Know about AI automation</span></h4>
           <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
           <ul class="acts">
@@ -580,7 +538,7 @@
       <h3><span class="code">C</span><span class="zh">初步體驗人工智能不同的應用</span><span class="en">A first experience of different AI applications</span></h3>
       <div class="cards">
         <article class="card" data-grade="2">
-          <header><span class="code">C</span><span class="grade">小二 · P2</span></header>
+          <header><span class="code">C</span><span class="grade"><span class="zh">小二</span><span class="en">P2</span></span></header>
           <h4><span class="zh">與人工智能系統進行簡單的「對話」，從中知道它能以文字、圖像和語音等形式作出回應</span><span class="en">Have a simple “conversation” with an AI system, and see that it can reply in text, images, speech, and other forms</span></h4>
           <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
           <ul class="acts">
@@ -590,7 +548,7 @@
           </ul>
         </article>
         <article class="card" data-grade="3">
-          <header><span class="code">C</span><span class="grade">小三 · P3</span></header>
+          <header><span class="code">C</span><span class="grade"><span class="zh">小三</span><span class="en">P3</span></span></header>
           <h4><span class="zh">知道人工智能可按要求生成圖像</span><span class="en">Know that AI can generate an image from a request</span></h4>
           <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
           <ul class="acts">
@@ -600,7 +558,7 @@
           </ul>
         </article>
         <article class="card" data-grade="3">
-          <header><span class="code">C</span><span class="grade">小三 · P3</span></header>
+          <header><span class="code">C</span><span class="grade"><span class="zh">小三</span><span class="en">P3</span></span></header>
           <h4><span class="zh">知道人工智能可按要求生成音訊</span><span class="en">Know that AI can generate audio from a request</span></h4>
           <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
           <ul class="acts">
@@ -616,7 +574,7 @@
       <h3><span class="code">D</span><span class="zh">提示詞的運用</span><span class="en">Using prompts</span></h3>
       <div class="cards">
         <article class="card" data-grade="4">
-          <header><span class="code">D</span><span class="grade">小四 · P4</span></header>
+          <header><span class="code">D</span><span class="grade"><span class="zh">小四</span><span class="en">P4</span></span></header>
           <h4><span class="zh">理解並模仿簡單清晰的提示詞</span><span class="en">Understand simple, clear prompts, and follow their pattern</span></h4>
           <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
           <ul class="acts">
@@ -625,7 +583,7 @@
           </ul>
         </article>
         <article class="card" data-grade="5">
-          <header><span class="code">D</span><span class="grade">小五 · P5</span></header>
+          <header><span class="code">D</span><span class="grade"><span class="zh">小五</span><span class="en">P5</span></span></header>
           <h4><span class="zh">撰寫符合基本結構的完整提示詞</span><span class="en">Write a complete prompt with a basic structure</span></h4>
           <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
           <ul class="acts">
@@ -633,7 +591,7 @@
           </ul>
         </article>
         <article class="card" data-grade="6">
-          <header><span class="code">D</span><span class="grade">小六 · P6</span></header>
+          <header><span class="code">D</span><span class="grade"><span class="zh">小六</span><span class="en">P6</span></span></header>
           <h4><span class="zh">自主編寫提示詞以完成任務</span><span class="en">Write prompts on their own to complete a task</span></h4>
           <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
           <ul class="acts">
@@ -647,7 +605,7 @@
       <h3><span class="code">E</span><span class="zh">數據與人工智能的「學習」</span><span class="en">Data and how AI “learns”</span></h3>
       <div class="cards">
         <article class="card" data-grade="4">
-          <header><span class="code">E</span><span class="grade">小四 · P4</span></header>
+          <header><span class="code">E</span><span class="grade"><span class="zh">小四</span><span class="en">P4</span></span></header>
           <h4><span class="zh">講述自己如何學習新知識，以及日常生活中如何通過資料和經驗作出判斷，從而初步認識機器學習的基本概念</span><span class="en">Describe how they learn something new, and how they judge from information and experience in daily life, and so meet the basic idea of machine learning</span></h4>
           <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
           <ul class="acts">
@@ -656,7 +614,7 @@
           </ul>
         </article>
         <article class="card" data-grade="5">
-          <header><span class="code">E</span><span class="grade">小五 · P5</span></header>
+          <header><span class="code">E</span><span class="grade"><span class="zh">小五</span><span class="en">P5</span></span></header>
           <h4><span class="zh">運用數據「訓練」人工智能和測試其「訓練成果」</span><span class="en">Use data to “train” an AI and test what that “training” achieved</span></h4>
           <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
           <ul class="acts">
@@ -665,7 +623,7 @@
           </ul>
         </article>
         <article class="card" data-grade="5">
-          <header><span class="code">E</span><span class="grade">小五 · P5</span></header>
+          <header><span class="code">E</span><span class="grade"><span class="zh">小五</span><span class="en">P5</span></span></header>
           <h4><span class="zh">簡單分析數據如何影響人工智能「學習」</span><span class="en">Make a simple analysis of how data affects AI “learning”</span></h4>
           <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
           <ul class="acts">
@@ -673,7 +631,7 @@
           </ul>
         </article>
         <article class="card" data-grade="5">
-          <header><span class="code">E</span><span class="grade">小五 · P5</span></header>
+          <header><span class="code">E</span><span class="grade"><span class="zh">小五</span><span class="en">P5</span></span></header>
           <h4><span class="zh">認識人類學習與機器學習的分別</span><span class="en">Know how human learning differs from machine learning</span></h4>
           <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
           <ul class="acts">
@@ -688,7 +646,7 @@
       <h3><span class="code">F</span><span class="zh">識別與生成</span><span class="en">Recognition and generation</span></h3>
       <div class="cards">
         <article class="card" data-grade="4">
-          <header><span class="code">F</span><span class="grade">小四 · P4</span></header>
+          <header><span class="code">F</span><span class="grade"><span class="zh">小四</span><span class="en">P4</span></span></header>
           <h4><span class="zh">嘗試辨識人工智能生成的圖像、音頻和視像</span><span class="en">Try to recognise AI-generated images, audio, and video</span></h4>
           <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
           <ul class="acts">
@@ -704,7 +662,7 @@
           </ul>
         </article>
         <article class="card" data-grade="4">
-          <header><span class="code">F</span><span class="grade">小四 · P4</span></header>
+          <header><span class="code">F</span><span class="grade"><span class="zh">小四</span><span class="en">P4</span></span></header>
           <h4><span class="zh">運用人工智能識別圖像的內容</span><span class="en">Use AI to recognise what is in an image</span></h4>
           <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
           <ul class="acts">
@@ -712,7 +670,7 @@
           </ul>
         </article>
         <article class="card" data-grade="5">
-          <header><span class="code">F</span><span class="grade">小五 · P5</span></header>
+          <header><span class="code">F</span><span class="grade"><span class="zh">小五</span><span class="en">P5</span></span></header>
           <h4><span class="zh">運用人工智能識別語音的內容</span><span class="en">Use AI to recognise what is said in speech</span></h4>
           <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
           <ul class="acts">
@@ -720,7 +678,7 @@
           </ul>
         </article>
         <article class="card" data-grade="5">
-          <header><span class="code">F</span><span class="grade">小五 · P5</span></header>
+          <header><span class="code">F</span><span class="grade"><span class="zh">小五</span><span class="en">P5</span></span></header>
           <h4><span class="zh">認識人工智能識別圖像的基本概念</span><span class="en">Know the basic idea of how AI recognises images</span></h4>
           <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
           <ul class="acts">
@@ -730,7 +688,7 @@
           </ul>
         </article>
         <article class="card" data-grade="6">
-          <header><span class="code">F</span><span class="grade">小六 · P6</span></header>
+          <header><span class="code">F</span><span class="grade"><span class="zh">小六</span><span class="en">P6</span></span></header>
           <h4><span class="zh">認識人工智能生成內容的基本概念</span><span class="en">Know the basic idea of how AI generates content</span></h4>
           <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
           <ul class="acts">
@@ -739,7 +697,7 @@
           </ul>
         </article>
         <article class="card" data-grade="6">
-          <header><span class="code">F</span><span class="grade">小六 · P6</span></header>
+          <header><span class="code">F</span><span class="grade"><span class="zh">小六</span><span class="en">P6</span></span></header>
           <h4><span class="zh">適切地選擇和採用生成結果</span><span class="en">Choose and adopt generated results in a fitting way</span></h4>
           <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
           <ul class="acts">
@@ -754,7 +712,7 @@
       <h3><span class="code">G</span><span class="zh">人工智能的局限</span><span class="en">Limits of AI</span></h3>
       <div class="cards">
         <article class="card" data-grade="6">
-          <header><span class="code">G</span><span class="grade">小六 · P6</span></header>
+          <header><span class="code">G</span><span class="grade"><span class="zh">小六</span><span class="en">P6</span></span></header>
           <h4><span class="zh">明白人工智能有可能生成錯誤和偏差的結果或判斷</span><span class="en">Understand that AI may produce wrong or biased results or judgements</span></h4>
           <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
           <ul class="acts">
@@ -763,7 +721,7 @@
           </ul>
         </article>
         <article class="card" data-grade="6">
-          <header><span class="code">G</span><span class="grade">小六 · P6</span></header>
+          <header><span class="code">G</span><span class="grade"><span class="zh">小六</span><span class="en">P6</span></span></header>
           <h4><span class="zh">探討人類如何駕馭人工智能</span><span class="en">Explore how people can steer AI</span></h4>
           <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
           <ul class="acts">
@@ -790,7 +748,7 @@
       <h3><span class="code">H</span><span class="zh">善用人工智能</span><span class="en">Using AI well</span></h3>
       <div class="cards">
         <article class="card" data-grade="2">
-          <header><span class="code">H</span><span class="grade">小二 · P2</span></header>
+          <header><span class="code">H</span><span class="grade"><span class="zh">小二</span><span class="en">P2</span></span></header>
           <h4><span class="zh">認識過度依賴資訊科技和人工智能的不良影響</span><span class="en">Know the harm of relying too much on IT and AI</span></h4>
           <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
           <ul class="acts">
@@ -799,7 +757,7 @@
           </ul>
         </article>
         <article class="card" data-grade="3">
-          <header><span class="code">H</span><span class="grade">小三 · P3</span></header>
+          <header><span class="code">H</span><span class="grade"><span class="zh">小三</span><span class="en">P3</span></span></header>
           <h4><span class="zh">建立避免依賴人工智能的意識</span><span class="en">Become aware of the need not to depend on AI</span></h4>
           <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
           <ul class="acts">
@@ -808,7 +766,7 @@
           </ul>
         </article>
         <article class="card" data-grade="3">
-          <header><span class="code">H</span><span class="grade">小三 · P3</span></header>
+          <header><span class="code">H</span><span class="grade"><span class="zh">小三</span><span class="en">P3</span></span></header>
           <h4><span class="zh">知道適合運用人工智能的情境</span><span class="en">Know when it is suitable to use AI</span></h4>
           <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
           <ul class="acts">
@@ -823,7 +781,7 @@
           </ul>
         </article>
         <article class="card" data-grade="4">
-          <header><span class="code">H</span><span class="grade">小四 · P4</span></header>
+          <header><span class="code">H</span><span class="grade"><span class="zh">小四</span><span class="en">P4</span></span></header>
           <h4><span class="zh">認識在運用人工智能時可做與不可做的行為</span><span class="en">Know what you may and may not do when using AI</span></h4>
           <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
           <ul class="acts">
@@ -832,7 +790,7 @@
           </ul>
         </article>
         <article class="card" data-grade="6">
-          <header><span class="code">H</span><span class="grade">小六 · P6</span></header>
+          <header><span class="code">H</span><span class="grade"><span class="zh">小六</span><span class="en">P6</span></span></header>
           <h4><span class="zh">明白人機協作的概念，包括如何運用人工智能推動自主學習</span><span class="en">Understand human–AI collaboration, including how AI can support self-directed learning</span></h4>
           <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
           <ul class="acts">
@@ -842,7 +800,7 @@
           </ul>
         </article>
         <article class="card" data-grade="6">
-          <header><span class="code">H</span><span class="grade">小六 · P6</span></header>
+          <header><span class="code">H</span><span class="grade"><span class="zh">小六</span><span class="en">P6</span></span></header>
           <h4><span class="zh">運用人工智能設計和優化解決問題方案</span><span class="en">Use AI to design and improve a solution to a problem</span></h4>
           <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
           <ul class="acts">
@@ -1079,7 +1037,7 @@
 </main>
 
 <footer class="wrap">
-  <p><span class="zh">小學資訊與創新科技課程框架 · 人工智能部分（試行版） · 教師參考</span><span class="en">Primary Information and Innovation Technology Curriculum Framework · AI section (trial version) · teacher reference</span></p>
+  <p><a href="https://www.edb.gov.hk/tc/curriculum-development/kla/technology-edu/curriculum-doc/index.html" target="_blank" rel="noopener noreferrer"><span class="zh">來源：教育局課程文件</span><span class="en">Source: Education Bureau curriculum documents</span></a></p>
   <p><a href="#top"><span class="zh">回到頁首</span><span class="en">Back to top</span></a></p>
 </footer>
 
@@ -1090,7 +1048,9 @@
   var gradeButtons = document.querySelectorAll("[data-grade]");
 
   function setView(view) {
+    if (view !== "zh" && view !== "en") view = "zh";
     root.dataset.view = view;
+    root.lang = view === "en" ? "en" : "zh-Hant";
     viewButtons.forEach(function (b) {
       b.setAttribute("aria-pressed", b.dataset.view === view ? "true" : "false");
     });
@@ -1111,7 +1071,7 @@
 
   var saved = null;
   try { saved = localStorage.getItem("iit-ai-view"); } catch (e) {}
-  setView(saved || "both");
+  setView(saved === "en" ? "en" : "zh");
   viewButtons.forEach(function (b) {
     b.addEventListener("click", function () { setView(b.dataset.view); });
   });
