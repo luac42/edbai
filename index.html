@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" data-view="both">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>人工智能部分（試行版） · Artificial Intelligence section (trial version)</title>
+<style>
+  :root {
+    --paper: #f4f0e7;
+    --sheet: #fffdf9;
+    --ink: #1c1915;
+    --navy: #0e2f4d;
+    --navy-2: #1a4a6e;
+    --red: #8c2f2f;
+    --gold: #9a7b3c;
+    --en: #24384c;
+    --muted: #6d645b;
+    --line: #e5dccf;
+    --soft: #f7f2e8;
+    --chip: #efe6d6;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  section[id], .topic, .year { scroll-margin-top: 5.25rem; }
+  body {
+    margin: 0;
+    color: var(--ink);
+    background:
+      radial-gradient(1200px 420px at 10% -10%, #e7eef3 0%, transparent 55%),
+      var(--paper);
+    font-family: "Segoe UI", "Microsoft JhengHei UI", "Microsoft JhengHei", "PingFang HK", sans-serif;
+    font-size: 17px;
+    line-height: 1.7;
+  }
+  .toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.65rem 1.25rem;
+    background: rgba(244, 240, 231, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .brand .zh { display: block; color: var(--navy); font-weight: 650; font-size: 0.92rem; }
+  .brand .en { display: block; font-weight: 500; color: var(--muted); font-size: 0.78rem; }
+  html[data-view="en"] .brand .en { color: var(--navy); font-weight: 650; font-size: 0.92rem; }
+  .switch { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+  button {
+    font: inherit;
+    cursor: pointer;
+    border: 1px solid #d7cbb8;
+    background: #fff;
+    color: var(--navy);
+    border-radius: 999px;
+    padding: 0.35rem 0.8rem;
+    font-size: 0.88rem;
+  }
+  button[aria-pressed="true"] {
+    background: var(--navy);
+    color: #f7f3ea;
+    border-color: var(--navy);
+  }
+  button:focus-visible, a:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+  .mast {
+    background: var(--navy);
+    color: #f6f1e6;
+    padding: 3.2rem 1.25rem 4.2rem;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  .eyebrow {
+    margin: 0 0 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+    color: #f0d48a;
+  }
+  .eyebrow .zh, .eyebrow .en { display: block; }
+  .eyebrow .en { letter-spacing: 0.16em; margin-top: 0.2rem; color: #f3e2b0; }
+  h1 { margin: 0; font-size: clamp(1.8rem, 4vw, 2.7rem); line-height: 1.25; font-weight: 720; }
+  h1 .en, .framework .en, .lede .en { display: block; }
+  h1 .en { margin-top: 0.35rem; font-size: 0.62em; font-weight: 560; color: #d5e4f0; }
+  .trial { font-weight: 560; }
+  .framework { margin: 1rem 0 0; color: #e7eef6; }
+  .framework .en { margin-top: 0.15rem; color: #d5e4f2; }
+  .lede { margin: 1.1rem 0 0; max-width: 46rem; color: #e7eef4; font-size: 0.98rem; }
+  .lede .en { color: #c5d4e2; margin-top: 0.25rem; }
+  .sheet {
+    max-width: 1080px;
+    margin: -2.2rem auto 3rem;
+    background: var(--sheet);
+    border: 1px solid #eadfce;
+    box-shadow: 0 18px 50px rgba(40, 28, 12, 0.08);
+    padding: 1.4rem 1.4rem 3rem;
+  }
+  .toc { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0.2rem 0 0.4rem; }
+  .toc a {
+    text-decoration: none;
+    color: var(--navy);
+    background: var(--soft);
+    border-radius: 999px;
+    padding: 0.28rem 0.7rem;
+    font-size: 0.86rem;
+  }
+  .toc a:hover { background: #efe2cc; }
+  h2 {
+    margin: 2.4rem 0 0.85rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--line);
+    color: var(--navy);
+    font-size: 1.45rem;
+    line-height: 1.35;
+  }
+  h2 .idx {
+    display: inline-block;
+    color: var(--red);
+    font-variant-numeric: tabular-nums;
+    margin-right: 0.45rem;
+    font-size: 0.85em;
+  }
+  h2 .en, h3 .en { display: block; font-weight: 600; color: var(--navy-2); }
+  h2 .en { font-size: 1rem; margin-top: 0.12rem; }
+  .pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.35rem 1.8rem;
+    align-items: start;
+  }
+  .pair + .pair { margin-top: 0.95rem; }
+  .pair p { margin: 0; }
+  .en { color: var(--en); }
+  html[data-view="both"] .pair.lead .zh::before,
+  html[data-view="both"] .pair.lead .en::before {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 750;
+  }
+  html[data-view="both"] .pair.lead .zh::before { content: "中文"; }
+  html[data-view="both"] .pair.lead .en::before { content: "English"; }
+  html[data-view="both"] .pair .en {
+    border-left: 1px solid var(--line);
+    padding-left: 1.15rem;
+  }
+  .stages, .map { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; margin-top: 1rem; }
+  .stage, .map-cell, .year, .card, .principle {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+  }
+  .stage, .map-cell { padding: 1rem 1.05rem 1.1rem; background: var(--soft); }
+  .stage h3, .map-cell h3 { margin: 0 0 0.45rem; font-size: 1.05rem; color: var(--navy); }
+  .stage h3 .en, .kicker .en { font-size: 0.92rem; font-weight: 600; }
+  .stage .en, .map-cell .en, .card .en, .principle .en, .year .en, td .en, .note .en {
+    display: block;
+    margin-top: 0.18rem;
+    font-size: 0.95rem;
+  }
+  .principles { list-style: none; padding: 0; margin: 1rem 0 0; display: grid; gap: 0.7rem; }
+  .principle { padding: 0.85rem 1rem; display: grid; grid-template-columns: auto 1fr; gap: 0.75rem; align-items: start; }
+  .num {
+    width: 1.8rem; height: 1.8rem; border-radius: 50%;
+    display: grid; place-items: center;
+    background: var(--navy); color: #f6f1e6; font-size: 0.82rem; font-weight: 700;
+    margin-top: 0.15rem;
+  }
+  .principle p { margin: 0; }
+  .kicker { margin: 0 0 0.35rem; color: var(--red); font-weight: 750; font-size: 0.92rem; }
+  .ask { margin: 0.35rem 0 0.7rem; }
+  .map-cell ul { list-style: none; padding: 0; margin: 0.7rem 0 0; }
+  .map-cell li { padding: 0.45rem 0; border-top: 1px solid #e7dccb; }
+  .code {
+    display: inline-grid; place-items: center;
+    min-width: 1.5rem; height: 1.5rem; padding: 0 0.3rem;
+    margin-right: 0.35rem; border-radius: 6px;
+    background: var(--navy); color: #f6f1e6; font-size: 0.8rem; font-weight: 750;
+    vertical-align: 0.05em;
+  }
+  .filters { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.9rem 0 0.2rem; }
+  .topic { margin-top: 1.35rem; }
+  .topic > h3 {
+    margin: 0 0 0.7rem;
+    font-size: 1.2rem;
+    color: var(--navy);
+  }
+  .cards { display: grid; gap: 0.75rem; }
+  .card { padding: 0.95rem 1rem 0.55rem; }
+  .card header { display: flex; justify-content: space-between; gap: 0.6rem; align-items: center; margin-bottom: 0.35rem; }
+  .grade {
+    background: var(--chip);
+    color: var(--navy);
+    border-radius: 999px;
+    padding: 0.12rem 0.6rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .card h4 { margin: 0 0 0.55rem; font-size: 1.05rem; line-height: 1.45; }
+  .label { margin: 0; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); font-weight: 750; }
+  .acts { list-style: none; padding: 0; margin: 0.35rem 0 0.4rem; }
+  .acts > li { padding: 0.55rem 0; border-top: 1px solid var(--line); }
+  .acts ul { margin: 0.35rem 0 0.1rem 1.1rem; padding: 0; }
+  .acts ul li { margin: 0.28rem 0; }
+  .years { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+  .year { padding: 0.9rem 1rem 0.4rem; }
+  .year h3 { margin: 0 0 0.4rem; color: var(--navy); font-size: 1.15rem; }
+  .year ol { margin: 0; padding: 0 0 0.5rem; list-style: none; }
+  .year li { padding: 0.5rem 0; border-top: 1px solid var(--line); }
+  .table-scroll { overflow-x: auto; margin-top: 0.9rem; border: 1px solid var(--line); border-radius: 12px; }
+  table { width: 100%; border-collapse: collapse; min-width: 880px; background: #fff; }
+  th, td { border-bottom: 1px solid var(--line); padding: 0.75rem 0.8rem; vertical-align: top; text-align: left; }
+  th { background: var(--navy); color: #f6f1e6; font-weight: 680; }
+  th .en { color: #d5e2ee; font-weight: 500; font-size: 0.82rem; }
+  td.stage, td.focus { background: #f8f4ec; font-weight: 700; color: var(--navy); }
+  td.empty { color: var(--muted); text-align: center; }
+  .map-list { list-style: none; padding: 0; margin: 0; }
+  .map-list li + li { margin-top: 0.55rem; }
+  .tag { display: inline-block; font-size: 0.78rem; font-weight: 750; color: var(--red); margin-bottom: 0.1rem; }
+  .note { margin: 0; }
+  footer {
+    max-width: 1080px;
+    margin: 0 auto 2.5rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+    padding: 0 0.4rem;
+  }
+  footer a { color: var(--navy); }
+  html[data-view="zh"] .en { display: none !important; }
+  html[data-view="en"] .zh { display: none !important; }
+  html[data-view="zh"] .pair,
+  html[data-view="en"] .pair { grid-template-columns: 1fr; }
+  html[data-view="zh"] .pair .en,
+  html[data-view="en"] .pair .en { border: 0; padding: 0; }
+  html[data-view="en"] h1 .en,
+  html[data-view="en"] h2 .en,
+  html[data-view="en"] .card h4 .en,
+  html[data-view="en"] .topic > h3 .en,
+  html[data-view="en"] .year h3 .en {
+    font-size: inherit;
+    color: inherit;
+    font-weight: inherit;
+  }
+  html[data-view="en"] h1 .en { font-size: clamp(1.8rem, 4vw, 2.7rem); color: #f6f1e6; }
+  html[data-view="en"] .lede .en,
+  html[data-view="en"] .framework .en { color: #e7eef4; font-size: inherit; }
+  @media (max-width: 860px) {
+    .pair, .stages, .map, .years { grid-template-columns: 1fr; }
+    html[data-view="both"] .pair .en { border-left: 0; padding-left: 0; }
+    html[data-view="both"] .pair .en::before {
+      content: "English";
+      display: block;
+      margin-bottom: 0.25rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 750;
+    }
+    .sheet { margin-top: -1.4rem; padding: 1rem 0.9rem 2rem; }
+    .toolbar { align-items: flex-start; flex-direction: column; }
+  }
+  @media print {
+    .toolbar, .toc, .filters { display: none !important; }
+    body { background: white; }
+    .mast { padding: 0 0 1rem; background: white; color: black; }
+    .mast .en, .lede, .framework { color: #222 !important; }
+    .sheet { box-shadow: none; border: 0; margin: 0; }
+    .card, .principle, .year, tr { break-inside: avoid; }
+    a { text-decoration: none; color: inherit; }
+  }
+</style>
+</head>
+<body>
+<header class="toolbar">
+  <div class="brand"><span class="zh">人工智能部分（試行版）</span><span class="en">AI section · trial version</span></div>
+  <div class="switch" role="group" aria-label="Language">
+    <button type="button" data-view="both" aria-pressed="true">中英對照</button>
+    <button type="button" data-view="zh" aria-pressed="false">中文</button>
+    <button type="button" data-view="en" aria-pressed="false">English</button>
+  </div>
+</header>
+
+<header class="mast">
+  <div class="wrap">
+    <p class="eyebrow"><span class="zh">教師參考</span><span class="en">Teacher reference</span></p>
+    <h1>
+      <span class="zh">人工智能部分<span class="trial">（試行版）</span></span>
+      <span class="en">Artificial Intelligence section <span class="trial">(trial version)</span></span>
+    </h1>
+    <p class="framework">
+      <span class="zh">小學資訊與創新科技課程框架</span>
+      <span class="en">Primary Information and Innovation Technology Curriculum Framework</span>
+    </p>
+    <p class="lede">
+      <span class="zh">本頁把課程文件整理為中英對照，方便教師查閱。中文依原文；英文為對照譯文。</span>
+      <span class="en">This page sets the curriculum text out in parallel Chinese and English. The Chinese follows the source. The English is a parallel translation for teachers.</span>
+    </p>
+  </div>
+</header>
+
+<main class="sheet" id="top">
+  <nav class="toc" aria-label="Contents">
+    <a href="#background"><span class="zh">背景</span><span class="en"> Background</span></a>
+    <a href="#promote"><span class="zh">小學階段</span><span class="en"> Primary</span></a>
+    <a href="#links"><span class="zh">計算思維</span><span class="en"> Computational thinking</span></a>
+    <a href="#values"><span class="zh">科技向善</span><span class="en"> Technology for good</span></a>
+    <a href="#topics"><span class="zh">課題範圍</span><span class="en"> Topics</span></a>
+    <a href="#outcomes"><span class="zh">學習重點</span><span class="en"> Learning focuses</span></a>
+    <a href="#by-grade"><span class="zh">各年級</span><span class="en"> By year</span></a>
+    <a href="#alignment"><span class="zh">學習架構對照</span><span class="en"> Framework map</span></a>
+  </nav>
+
+  <section id="background">
+    <h2><span class="idx">01</span><span class="zh">背景</span><span class="en">Background</span></h2>
+    <div class="pair lead">
+      <p class="zh">隨着人工智能的急速發展以及日益增加的創科人才需求，教育局於 2026 年 6 月公布《中小學數字教育發展藍圖》，包括《中小學人工智能素養學習架構》（學習架構），以及將於 2026/27 學年內公布《小學資訊與創新科技課程框架》，通過學習和應用人工智能，提升學生的人工智能素養。新課程亦包括資訊科技概念與應用、計算思維和編程，有助學生學習人工智能的運作概念，以及幫助學生應用人工智能實踐解難方案。</p>
+      <p class="en">As artificial intelligence develops quickly and the demand for innovation and technology talent grows, the Education Bureau published the Blueprint for the Development of Digital Education in Primary and Secondary Schools in June 2026. The Blueprint includes the AI Literacy Learning Framework for Primary and Secondary Schools (the Learning Framework). During the 2026/27 school year the Bureau will also publish the Primary Information and Innovation Technology Curriculum Framework. Through learning and applying AI, students build AI literacy. The new curriculum also covers IT concepts and applications, computational thinking, and programming. These help students understand how AI works and use AI to carry out problem-solving plans.</p>
+    </div>
+    <div class="pair">
+      <p class="zh">本文件取自資訊與創新科技課程框架的人工智能部分，由「檢視小學階段科技教育專責委員會」擬訂，經過課程發展議會下的「科技教育委員會」審閱，旨在幫助學校於校本電腦課試行小學資訊與創新科技課程的人工智能部分，以落實學習架構的內容。</p>
+      <p class="en">This document is the AI section of the Information and Innovation Technology Curriculum Framework. It was drafted by the Ad Hoc Committee on the Review of Technology Education at Primary Level and reviewed by the Committee on Technology Education under the Curriculum Development Council. It helps schools trial this AI section in school-based computer lessons, so they can put the Learning Framework into practice.</p>
+    </div>
+  </section>
+
+  <section id="promote">
+    <h2><span class="idx">02</span><span class="zh">在小學階段推展人工智能教育</span><span class="en">Promoting AI education in primary schools</span></h2>
+    <h3><span class="zh">學習和應用人工智能</span><span class="en">Learning and applying AI</span></h3>
+    <div class="pair lead">
+      <p class="zh">學校應引導學生明白人工智能只是輔助工具，通過科技教育（資訊及通訊科技）的學習內容，以及於不同科目、跨學科和範疇的應用場景，鼓勵學生主動思考，培養慎思明辨的能力和正確的價值觀，避免過度依賴人工智能而形成「思維外判」。學校通過設計探究為本的學與教活動，讓學生在應用人工智能的同時，反思其限制與影響，從而建立負責任和主動的學習態度。</p>
+      <p class="en">Schools should help students see that AI is only a supporting tool. Through technology education (information and communication technology), and through uses in different subjects, across subjects, and in different fields, schools encourage students to think for themselves, to judge carefully, and to hold sound values, so they do not depend on AI so much that they outsource their thinking. Inquiry-based learning and teaching activities let students use AI and, at the same time, reflect on its limits and effects, and so build a responsible, active approach to learning.</p>
+    </div>
+    <div class="stages">
+      <article class="stage">
+        <h3><span class="zh">學習階段一</span><span class="en">Learning Stage 1</span></h3>
+        <p class="zh">人工智能相關的學與教主要通過示範與體驗活動，引導學生認識人工智能的日常應用與基本能力。學生需要在教師的指導下初步接觸和體驗人工智能工具。教師需引導和鼓勵學生多思考，避免他們過度使用資訊科技和過早依賴人工智能。</p>
+        <p class="en">Learning and teaching about AI is mainly through demonstration and hands-on experience, so students meet everyday uses of AI and its basic abilities. Students have a first encounter with AI tools under the teacher’s guidance. Teachers lead and encourage students to think more, so they do not overuse IT or come to depend on AI too early.</p>
+      </article>
+      <article class="stage">
+        <h3><span class="zh">學習階段二</span><span class="en">Learning Stage 2</span></h3>
+        <p class="zh">教師設計合適的學與教活動，監察和引導學生善用人工智能輔助學習，逐步認識人工智能的運作概念和特性，並培養學生以人為本、科技向善的精神，鼓勵他們養成慎用人工智能。</p>
+        <p class="en">Teachers design suitable activities, and monitor and guide students to use AI well in support of learning. Students gradually learn how AI works and what it is like. Teachers nurture a human-centred spirit of technology for good, and encourage the habit of using AI with care.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="links">
+    <h2><span class="idx">03</span><span class="zh">與計算思維、編程及資訊科技概念的關係</span><span class="en">How this connects with computational thinking, programming, and IT concepts</span></h2>
+    <div class="pair lead">
+      <p class="zh">計算思維、編程及資訊科技概念幫助學生循序漸進地學習人工智能。學生通過編程或不插電活動拆解問題和設計解難方法與步驟，逐步掌握計算思維；而資訊科技知識亦有助他們理解數據處理與系統運作概念，這些學習經歷幫助他們學習和應用人工智能。</p>
+      <p class="en">Computational thinking, programming, and IT concepts help students learn AI step by step. Through programming or unplugged activities, students break problems apart and design steps for solving them, and so build computational thinking. IT knowledge also helps them understand data processing and how systems work. These experiences help them learn and apply AI.</p>
+    </div>
+  </section>
+
+  <section id="values">
+    <h2><span class="idx">04</span><span class="zh">持守以人為本、科技向善的精神</span><span class="en">Hold to a human-centred spirit: technology for good</span></h2>
+    <div class="pair lead">
+      <p class="zh">在學習和應用人工智能時，教師需引導學生持守以人為本、科技向善的精神，運用合適而有效的課程設計和教學活動，培養學生正確使用人工智能的態度。學生必須：</p>
+      <p class="en">When students learn and apply AI, teachers guide them to stay human-centred and to use technology for good. Through fitting and effective curriculum design and teaching activities, students build the right attitude to AI. Students must:</p>
+    </div>
+    <ol class="principles">
+      <li class="principle"><span class="num">1</span><div>
+        <p class="zh"><strong>認識人是主角：</strong>人工智能是人類的工具和助手，它是輔助學習與工作的工具。</p>
+        <p class="en"><strong>People stay in charge.</strong> AI is a human tool and assistant. It supports learning and work.</p>
+      </div></li>
+      <li class="principle"><span class="num">2</span><div>
+        <p class="zh"><strong>培養判斷力：</strong>學會分辨甚麼時候需要人工智能協助完成工作，甚麼時候應該由自己完成工作，能夠適時適用人工智能。</p>
+        <p class="en"><strong>Build judgement.</strong> Learn when a task needs AI and when you should do it yourself, and use AI at the right time for the right job.</p>
+      </div></li>
+      <li class="principle"><span class="num">3</span><div>
+        <p class="zh"><strong>先思而後用：</strong>做功課或解難時，先思考和嘗試，有需要時參考人工智能生成的內容。</p>
+        <p class="en"><strong>Think first, then use.</strong> When doing schoolwork or solving a problem, think and try first. Turn to AI-generated content when you need it.</p>
+      </div></li>
+      <li class="principle"><span class="num">4</span><div>
+        <p class="zh"><strong>持續學習：</strong>要親自動手和動腦，不要濫用或完全依賴人工智能。</p>
+        <p class="en"><strong>Keep learning.</strong> Use your own hands and your own mind. Do not misuse AI or rely on it completely.</p>
+      </div></li>
+      <li class="principle"><span class="num">5</span><div>
+        <p class="zh"><strong>認識創意來自人的想法：</strong>人工智能可以提供靈感，但真正的創意仍然來自人的想法。</p>
+        <p class="en"><strong>Creativity starts with people.</strong> AI can offer sparks of ideas, but real creativity still comes from a person’s own thinking.</p>
+      </div></li>
+      <li class="principle"><span class="num">6</span><div>
+        <p class="zh"><strong>核實資訊真確性：</strong>要學會查證和核實資訊，人工智能提供的答案不一定全對，不應隨意使用或轉發未經核實的資訊。</p>
+        <p class="en"><strong>Check that information is true.</strong> Learn to verify what you read. AI answers are not always right. Do not use or pass on information you have not checked.</p>
+      </div></li>
+      <li class="principle"><span class="num">7</span><div>
+        <p class="zh"><strong>道德地使用：</strong>合乎道德地運用人工智能，不要進行違反誠信和傷害別人的事，如抄襲、欺凌別人、詐騙。</p>
+        <p class="en"><strong>Use it ethically.</strong> Do not use AI to break trust or harm others, for example by plagiarising, bullying, or scamming.</p>
+      </div></li>
+      <li class="principle"><span class="num">8</span><div>
+        <p class="zh"><strong>保護個人資料：</strong>不把自己和別人的個人資料輸入人工智能工具。</p>
+        <p class="en"><strong>Protect personal data.</strong> Do not enter your own or anyone else’s personal data into an AI tool.</p>
+      </div></li>
+      <li class="principle"><span class="num">9</span><div>
+        <p class="zh"><strong>助己助人：</strong>善用人工智能幫助自己學習和解決問題，也可以通過互相分享和鼓勵，運用科技幫助他人和社群，推動科技向善。</p>
+        <p class="en"><strong>Help yourself and help others.</strong> Use AI well to learn and to solve problems. Share and encourage one another, and use technology to help other people and the community, so that technology is used for good.</p>
+      </div></li>
+    </ol>
+  </section>
+
+  <section id="topics">
+    <h2><span class="idx">05</span><span class="zh">學習和應用人工智能的課題</span><span class="en">Topics for learning and applying AI</span></h2>
+    <h3><span class="zh">課題與範圍</span><span class="en">Topics and strands</span></h3>
+    <div class="pair lead">
+      <p class="zh">學習和應用人工智能的內容包括「認識人工智能」、「認識基本運作概念」、「應用與實踐」和「反思與建立正確態度」四個範圍。</p>
+      <p class="en">Learning and applying AI covers four strands: knowing AI, knowing the basic ideas of how it works, application and practice, and reflection and the right attitudes.</p>
+    </div>
+    <div class="map">
+      <article class="map-cell">
+        <p class="kicker"><span class="zh">認識人工智能</span><span class="en">Knowing AI</span></p>
+        <p class="ask zh">認識「人工智能是甚麼」與「人工智能可以做甚麼」</p>
+        <p class="ask en">What AI is, and what it can do</p>
+        <ul>
+          <li><span class="code">A</span><span class="zh">生活中的人工智能</span><span class="en">AI in everyday life</span></li>
+          <li><span class="code">B</span><span class="zh">人工智能的能力與發展</span><span class="en">What AI can do, and how it has developed</span></li>
+        </ul>
+      </article>
+      <article class="map-cell">
+        <p class="kicker"><span class="zh">認識基本運作概念</span><span class="en">How AI works</span></p>
+        <p class="ask zh">認識「人工智能如何運作」</p>
+        <p class="ask en">How AI works</p>
+        <ul>
+          <li><span class="code">E</span><span class="zh">數據與人工智能的「學習」</span><span class="en">Data and how AI “learns”</span></li>
+          <li><span class="code">F</span><span class="zh">識別與生成</span><span class="en">Recognition and generation</span></li>
+        </ul>
+      </article>
+      <article class="map-cell">
+        <p class="kicker"><span class="zh">應用與實踐</span><span class="en">Application and practice</span></p>
+        <p class="ask zh">重點在「如何使用人工智能」</p>
+        <p class="ask en">The focus is how to use AI</p>
+        <ul>
+          <li><span class="code">C</span><span class="zh">初步體驗人工智能不同的應用</span><span class="en">A first experience of different AI applications</span></li>
+          <li><span class="code">D</span><span class="zh">提示詞的運用</span><span class="en">Using prompts</span></li>
+        </ul>
+      </article>
+      <article class="map-cell">
+        <p class="kicker"><span class="zh">反思與建立正確態度</span><span class="en">Reflection and the right attitudes</span></p>
+        <p class="ask zh">關注「人工智能的影響、限制與正當使用」</p>
+        <p class="ask en">Impact, limits, and proper use</p>
+        <ul>
+          <li><span class="code">G</span><span class="zh">人工智能的局限</span><span class="en">Limits of AI</span></li>
+          <li><span class="code">H</span><span class="zh">善用人工智能</span><span class="en">Using AI well</span></li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section id="outcomes">
+    <h2><span class="idx">06</span><span class="zh">學習重點與學與教活動建議</span><span class="en">Learning focuses and suggested activities</span></h2>
+    <div class="pair lead">
+      <p class="zh">以下列出各課題的學習重點及學與教活動建議。由於各學習重點互有連繫，學校需整體規劃課程和學與教安排。</p>
+      <p class="en">Below are the learning focuses for each topic, with suggested learning and teaching activities. The focuses are connected, so schools should plan the curriculum and the arrangements as a whole.</p>
+    </div>
+    <div class="filters" role="group" aria-label="Filter by year">
+      <button type="button" data-grade="all" aria-pressed="true">全部 · All</button>
+      <button type="button" data-grade="2" aria-pressed="false">小二 · P2</button>
+      <button type="button" data-grade="3" aria-pressed="false">小三 · P3</button>
+      <button type="button" data-grade="4" aria-pressed="false">小四 · P4</button>
+      <button type="button" data-grade="5" aria-pressed="false">小五 · P5</button>
+      <button type="button" data-grade="6" aria-pressed="false">小六 · P6</button>
+    </div>
+
+    <div class="topic" id="topic-a">
+      <h3><span class="code">A</span><span class="zh">生活中的人工智能</span><span class="en">AI in everyday life</span></h3>
+      <div class="cards">
+        <article class="card" data-grade="2">
+          <header><span class="code">A</span><span class="grade">小二 · P2</span></header>
+          <h4><span class="zh">列舉生活中人工智能應用的例子</span><span class="en">Give examples of AI applications in everyday life</span></h4>
+          <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
+          <ul class="acts">
+            <li><span class="zh">教師展示圖片或短片，介紹人工智能應用例子（如語音助理、臉部辨識）。</span><span class="en">The teacher shows pictures or short clips of AI applications, such as voice assistants and facial recognition.</span></li>
+            <li><span class="zh">學生進行小組活動，以圖卡按「人工智能應用」（如語音助手、串流平台推薦影片功能、翻譯應用軟件）與「非人工智能應用」（如計算機、電子時鐘、簡單電腦遊戲）分類。</span><span class="en">In groups, students sort picture cards into “AI applications” (a voice assistant, video recommendations on a streaming platform, a translation app) and “non-AI applications” (a calculator, a digital clock, a simple computer game).</span></li>
+            <li><span class="zh">學生分享「在我生活中的人工智能」。</span><span class="en">Students share “AI in my life”.</span></li>
+          </ul>
+        </article>
+        <article class="card" data-grade="3">
+          <header><span class="code">A</span><span class="grade">小三 · P3</span></header>
+          <h4><span class="zh">辨識非人工智能的資訊科技與人工智能的分別</span><span class="en">Tell non-AI information technology apart from AI</span></h4>
+          <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
+          <ul class="acts">
+            <li><span class="zh">教師用生活例子作對比，講解兩者的分別（如計算機與語音助手）。</span><span class="en">The teacher contrasts everyday examples, such as a calculator and a voice assistant.</span></li>
+            <li><span class="zh">學生進行角色扮演，模擬「程式」與「人工智能」的行為。</span><span class="en">Students role-play how a “program” behaves and how “AI” behaves.</span></li>
+            <li><span class="zh">學生對非人工智能的資訊科技與人工智能作簡單比較，如「它是否會學習？」、「它是否能按情境的變化調整判斷？」</span><span class="en">Students make a simple comparison. For example: “Can it learn?” “Can it change its judgement when the situation changes?”</span></li>
+          </ul>
+        </article>
+        <article class="card" data-grade="4">
+          <header><span class="code">A</span><span class="grade">小四 · P4</span></header>
+          <h4><span class="zh">認識資訊科技和人工智能如何改善生活</span><span class="en">See how IT and AI can improve life</span></h4>
+          <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
+          <ul class="acts">
+            <li><span class="zh">學生蒐集資訊科技和人工智能應用以提升工作質素和效率的例子。</span><span class="en">Students collect examples of IT and AI used to improve the quality and efficiency of work.</span></li>
+            <li><span class="zh">學生分組，按不同領域和場景，討論資訊科技和人工智能技術如何提高工作或服務的質素和效率。</span><span class="en">In groups, students discuss how IT and AI raise the quality and efficiency of work or services in different fields and settings.</span></li>
+            <li><span class="zh">教師以不同範疇的今昔對比，講述應用人工智能改善生活的場景，如人工智能輔助診斷和治療以提高醫療服務質素。</span><span class="en">The teacher compares past and present in different fields, and describes situations where AI improves life, such as AI-assisted diagnosis and treatment that raise the quality of healthcare.</span></li>
+          </ul>
+        </article>
+      </div>
+    </div>
+
+    <div class="topic" id="topic-b">
+      <h3><span class="code">B</span><span class="zh">人工智能的能力與發展</span><span class="en">What AI can do, and how it has developed</span></h3>
+      <div class="cards">
+        <article class="card" data-grade="2">
+          <header><span class="code">B</span><span class="grade">小二 · P2</span></header>
+          <h4><span class="zh">簡單認識「智能」的概念（學習和作出決定）</span><span class="en">Gain a simple idea of “intelligence” (learning and making decisions)</span></h4>
+          <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
+          <ul class="acts">
+            <li><span class="zh">教師運用日常情境講解學習和作出決定的關係，如根據天氣決定是否攜帶雨傘、根據交通燈指示決定應否過馬路，並說明人類能從經驗中學習並作出選擇。</span><span class="en">The teacher uses everyday situations to link learning and deciding: whether to take an umbrella because of the weather, or whether to cross because of the traffic light. People learn from experience and then choose.</span></li>
+            <li><span class="zh">教師引導學生明白機器也可模仿這些能力，從而初步建立對「智能」及人工智能的基本概念。</span><span class="en">The teacher helps students see that machines can imitate these abilities, so they begin to form a basic idea of “intelligence” and of AI.</span></li>
+          </ul>
+        </article>
+        <article class="card" data-grade="3">
+          <header><span class="code">B</span><span class="grade">小三 · P3</span></header>
+          <h4><span class="zh">認識人工智能的基本能力和應用</span><span class="en">Know the basic abilities of AI and how they are used</span></h4>
+          <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
+          <ul class="acts">
+            <li>
+              <span class="zh">教師引導學生認識人工智能功能和應用例子，如：</span>
+              <span class="en">The teacher introduces AI functions and examples, such as:</span>
+              <ul>
+                <li><span class="zh">以圖像辨識功能輔助搜尋圖像或辨識貨件</span><span class="en">Image recognition to search for pictures or identify parcels</span></li>
+                <li><span class="zh">以語音辨識功能輔助語音輸入</span><span class="en">Speech recognition to support voice input</span></li>
+                <li><span class="zh">以文字生成功能輔助寫作</span><span class="en">Text generation to support writing</span></li>
+                <li><span class="zh">以影片生成功能輔助影片編輯與製作</span><span class="en">Video generation to support editing and producing videos</span></li>
+              </ul>
+            </li>
+            <li><span class="zh">學生根據所認識的人工智能功能，以繪畫和文字分享「我想要的人工智能助手」。</span><span class="en">Using the functions they have met, students draw and write about “the AI assistant I want”.</span></li>
+          </ul>
+        </article>
+        <article class="card" data-grade="4">
+          <header><span class="code">B</span><span class="grade">小四 · P4</span></header>
+          <h4><span class="zh">認識人工智能的演進，包括資訊和通訊科技的進步如何推動人工智能的發展</span><span class="en">Know how AI has developed, including how progress in information and communication technology has driven that development</span></h4>
+          <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
+          <ul class="acts">
+            <li><span class="zh">學生嘗試列舉資訊和通訊科技的近代發展，如無線網絡、物聯網。</span><span class="en">Students try to name recent developments in information and communication technology, such as wireless networks and the Internet of Things.</span></li>
+            <li><span class="zh">教師亦可向學生簡介一些與人工智能相關的新興科技，如大數據、雲計算、圖形處理器。</span><span class="en">The teacher may also briefly introduce emerging technologies linked to AI, such as big data, cloud computing, and graphics processing units.</span></li>
+            <li><span class="zh">教師引導學生認識資訊和通訊科技進步與人工智能演進的關係，如物聯網和雲計算幫助數據收集和處理。</span><span class="en">The teacher helps students see the link. For example, the Internet of Things and cloud computing help with collecting and processing data.</span></li>
+          </ul>
+        </article>
+        <article class="card" data-grade="5">
+          <header><span class="code">B</span><span class="grade">小五 · P5</span></header>
+          <h4><span class="zh">初步認識影響人工智能效能的三大要素，包括數據、算法和算力</span><span class="en">Begin to know the three factors that affect how well AI performs: data, algorithms, and computing power</span></h4>
+          <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
+          <ul class="acts">
+            <li><span class="zh">教師以問題帶出三大要素的重要性，如「為何有些人工智能工具比其他的更準確呢？」</span><span class="en">The teacher uses a question to show why the three factors matter, such as “Why are some AI tools more accurate than others?”</span></li>
+            <li><span class="zh">教師以生活例子幫助學生理解數據、算法和算力，如以煮食為例：不同的食材（數據）、烹調步驟（算法）及爐火火力（算力），會影響菜式的質素。</span><span class="en">The teacher uses an everyday example. In cooking, the ingredients (data), the steps in the recipe (algorithms), and the heat of the stove (computing power) affect the quality of the dish.</span></li>
+            <li><span class="zh">學生進行配對活動，就三大要素與例子作配對和簡單分析。</span><span class="en">Students match examples to the three factors and make a simple analysis.</span></li>
+          </ul>
+        </article>
+        <article class="card" data-grade="5">
+          <header><span class="code">B</span><span class="grade">小五 · P5</span></header>
+          <h4><span class="zh">認識人工智能如何收集數據</span><span class="en">Know how AI collects data</span></h4>
+          <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
+          <ul class="acts">
+            <li><span class="zh">教師重溫學生對一般輸入裝置的認識（如網絡攝影機、麥克風），並討論日常收集數據的方法。</span><span class="en">The teacher revisits input devices students already know, such as webcams and microphones, and discusses everyday ways of collecting data.</span></li>
+            <li><span class="zh">學生進行分類活動，討論哪些情況可能會被人工智能收集自己的數據（如瀏覽網頁、在社交媒體上留言），亦可延伸討論哪些數據會被收集。</span><span class="en">Students sort situations and discuss when AI might collect data about them, for example when they browse the web or comment on social media. They can go on to discuss which data would be collected.</span></li>
+            <li><span class="zh">教師引導學生思考和關注私隱與數據安全。</span><span class="en">The teacher leads students to think about privacy and data security.</span></li>
+          </ul>
+        </article>
+        <article class="card" data-grade="5">
+          <header><span class="code">B</span><span class="grade">小五 · P5</span></header>
+          <h4><span class="zh">認識人工智能自動化</span><span class="en">Know about AI automation</span></h4>
+          <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
+          <ul class="acts">
+            <li><span class="zh">學生列舉自動化的例子，如自動門、自動導航。</span><span class="en">Students give examples of automation, such as automatic doors and automated navigation.</span></li>
+            <li><span class="zh">教師以生活場景或例子（如物流、交通），介紹人工智能自動化的應用。</span><span class="en">Using everyday settings such as logistics and transport, the teacher introduces uses of AI automation.</span></li>
+          </ul>
+        </article>
+      </div>
+    </div>
+
+    <div class="topic" id="topic-c">
+      <h3><span class="code">C</span><span class="zh">初步體驗人工智能不同的應用</span><span class="en">A first experience of different AI applications</span></h3>
+      <div class="cards">
+        <article class="card" data-grade="2">
+          <header><span class="code">C</span><span class="grade">小二 · P2</span></header>
+          <h4><span class="zh">與人工智能系統進行簡單的「對話」，從中知道它能以文字、圖像和語音等形式作出回應</span><span class="en">Have a simple “conversation” with an AI system, and see that it can reply in text, images, speech, and other forms</span></h4>
+          <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
+          <ul class="acts">
+            <li><span class="zh">教師提醒學生使用規則，如安全守則、合宜提問、避免過度使用。</span><span class="en">The teacher reminds students of the rules: safety, suitable questions, and not overusing the tool.</span></li>
+            <li><span class="zh">教師運用提問句型練習卡，協助學生草擬與人工智能「對話」的內容，如「甚麼是…」、「請告訴我…」。</span><span class="en">Using question-pattern cards, the teacher helps students draft what to say, such as “What is …?” and “Please tell me …”.</span></li>
+            <li><span class="zh">學生在教師指導下，按指定主題（如動物、交通）草擬「對話」內容，在教師指引和監督下與人工智能「對話」，並記錄其回應作匯報。</span><span class="en">With the teacher’s guidance, students draft a conversation on a set theme, such as animals or transport. Under the teacher’s direction and supervision they talk with the AI, record its replies, and report back.</span></li>
+          </ul>
+        </article>
+        <article class="card" data-grade="3">
+          <header><span class="code">C</span><span class="grade">小三 · P3</span></header>
+          <h4><span class="zh">知道人工智能可按要求生成圖像</span><span class="en">Know that AI can generate an image from a request</span></h4>
+          <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
+          <ul class="acts">
+            <li><span class="zh">教師介紹提示詞的概念，並示範向人工智能輸入簡單指令以生成圖像。</span><span class="en">The teacher introduces prompts and demonstrates a simple instruction that generates an image.</span></li>
+            <li><span class="zh">學生在教師指導下，運用指定主題和詞語草擬提示詞（如「貓 + 太空 + 卡通」→ 請繪畫一隻在太空的卡通貓）。</span><span class="en">With guidance, students draft a prompt from a given theme and words. For example, “cat + space + cartoon” becomes “Please draw a cartoon cat in space”.</span></li>
+            <li><span class="zh">教師按提示詞主題把學生分組，讓學生互相比較提示詞和所生成的圖片。</span><span class="en">The teacher groups students by prompt theme so they can compare prompts and the pictures that were generated.</span></li>
+          </ul>
+        </article>
+        <article class="card" data-grade="3">
+          <header><span class="code">C</span><span class="grade">小三 · P3</span></header>
+          <h4><span class="zh">知道人工智能可按要求生成音訊</span><span class="en">Know that AI can generate audio from a request</span></h4>
+          <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
+          <ul class="acts">
+            <li><span class="zh">教師示範使用文字生成語音工具。</span><span class="en">The teacher demonstrates a text-to-speech tool.</span></li>
+            <li><span class="zh">學生在教師指導下輸入文字和修改語音設定（如語言、語速、語調），然後聆聽生成的語音。</span><span class="en">With guidance, students enter text, change the voice settings (language, speed, tone), and listen to the speech that is generated.</span></li>
+            <li><span class="zh">學生比較在不同設定下所生成的語音。</span><span class="en">Students compare the speech generated under different settings.</span></li>
+          </ul>
+        </article>
+      </div>
+    </div>
+
+    <div class="topic" id="topic-d">
+      <h3><span class="code">D</span><span class="zh">提示詞的運用</span><span class="en">Using prompts</span></h3>
+      <div class="cards">
+        <article class="card" data-grade="4">
+          <header><span class="code">D</span><span class="grade">小四 · P4</span></header>
+          <h4><span class="zh">理解並模仿簡單清晰的提示詞</span><span class="en">Understand simple, clear prompts, and follow their pattern</span></h4>
+          <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
+          <ul class="acts">
+            <li><span class="zh">教師準備一些提示詞例子，讓學生選擇哪些提示詞能得到更好的回應，並分享原因（如是否清晰？有沒有要求？有沒有具體內容？）。</span><span class="en">The teacher prepares sample prompts. Students choose which ones get a better response and say why: Is it clear? Does it make a request? Does it include specific details?</span></li>
+            <li><span class="zh">教師設定主題和準備提示詞例子，讓學生模仿和修訂，以生成文字或圖片，並初步判斷結果是否符合要求。（可包括各科的科本內容和要求。）</span><span class="en">The teacher sets a theme and provides sample prompts. Students copy and revise them to generate text or pictures, and make a first judgement about whether the result meets the request. Subject content and requirements may be included.</span></li>
+          </ul>
+        </article>
+        <article class="card" data-grade="5">
+          <header><span class="code">D</span><span class="grade">小五 · P5</span></header>
+          <h4><span class="zh">撰寫符合基本結構的完整提示詞</span><span class="en">Write a complete prompt with a basic structure</span></h4>
+          <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
+          <ul class="acts">
+            <li><span class="zh">教師提供句式框架（如主題 + 角色 + 場景 + 風格）。學生按框架輸入提示詞，生成故事插圖、簡短描述或海報，並檢視生成內容如何配合提示詞。（可包括各科的科本內容和要求。）</span><span class="en">The teacher provides a frame, such as theme + role + setting + style. Students enter a prompt in that frame to generate a story illustration, a short description, or a poster, and check how the result follows the prompt. Subject content and requirements may be included.</span></li>
+          </ul>
+        </article>
+        <article class="card" data-grade="6">
+          <header><span class="code">D</span><span class="grade">小六 · P6</span></header>
+          <h4><span class="zh">自主編寫提示詞以完成任務</span><span class="en">Write prompts on their own to complete a task</span></h4>
+          <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
+          <ul class="acts">
+            <li><span class="zh">學生因應不同任務（如宣傳海報、故事創作），自行設計提示詞，測試和檢視不同寫法對結果的影響，並作簡單修訂。（可包括各科的科本內容和要求。）</span><span class="en">For different tasks, such as a promotional poster or a story, students design their own prompts, test how different wording changes the result, and make simple revisions. Subject content and requirements may be included.</span></li>
+          </ul>
+        </article>
+      </div>
+    </div>
+
+    <div class="topic" id="topic-e">
+      <h3><span class="code">E</span><span class="zh">數據與人工智能的「學習」</span><span class="en">Data and how AI “learns”</span></h3>
+      <div class="cards">
+        <article class="card" data-grade="4">
+          <header><span class="code">E</span><span class="grade">小四 · P4</span></header>
+          <h4><span class="zh">講述自己如何學習新知識，以及日常生活中如何通過資料和經驗作出判斷，從而初步認識機器學習的基本概念</span><span class="en">Describe how they learn something new, and how they judge from information and experience in daily life, and so meet the basic idea of machine learning</span></h4>
+          <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
+          <ul class="acts">
+            <li><span class="zh">教師邀請學生分享「如何辨認這是蘋果？」和「如何辨認某位同學？」，引導學生回憶面對新面孔或新事物時，自己如何「學習」。</span><span class="en">The teacher invites students to share “How do I tell this is an apple?” and “How do I recognise a classmate?”, and helps them recall how they “learn” when they meet a new face or a new thing.</span></li>
+            <li><span class="zh">教師準備一系列圖片或音訊，讓學生嘗試分析、辨識規律與特徵，從而體驗機器學習「從數據中學習，學習後懂得作出決定（如辨識）」的過程，了解其與人類學習的相似之處。</span><span class="en">The teacher prepares pictures or audio. Students look for patterns and features. They experience how machine learning “learns from data and can then make a decision, such as recognising something”, and see how this is similar to human learning.</span></li>
+          </ul>
+        </article>
+        <article class="card" data-grade="5">
+          <header><span class="code">E</span><span class="grade">小五 · P5</span></header>
+          <h4><span class="zh">運用數據「訓練」人工智能和測試其「訓練成果」</span><span class="en">Use data to “train” an AI and test what that “training” achieved</span></h4>
+          <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
+          <ul class="acts">
+            <li><span class="zh">學生蒐集一定數量的動物或物件圖片，運用圖像機器學習平台，以所蒐集的圖片「訓練」人工智能。</span><span class="en">Students collect a set of pictures of animals or objects and use an image machine-learning platform to “train” an AI with those pictures.</span></li>
+            <li><span class="zh">學生記錄與比較辨識結果。（可結合 STEAM 教育和專題研習進行學習。）</span><span class="en">Students record and compare the recognition results. This can be combined with STEAM education and project learning.</span></li>
+          </ul>
+        </article>
+        <article class="card" data-grade="5">
+          <header><span class="code">E</span><span class="grade">小五 · P5</span></header>
+          <h4><span class="zh">簡單分析數據如何影響人工智能「學習」</span><span class="en">Make a simple analysis of how data affects AI “learning”</span></h4>
+          <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
+          <ul class="acts">
+            <li><span class="zh">承接「訓練」人工智能活動，教師請學生刻意蒐集偏差的數據（如以識別貓為目標，刻意找一些罕見品種的貓），再用新一組圖片「訓練」人工智能，以比較辨識結果，並進行簡單分析。</span><span class="en">Following the training activity, the teacher asks students to deliberately collect skewed data. If the goal is to recognise cats, they purposely find rare breeds. They “train” the AI again with a new set of pictures, compare the results, and make a simple analysis.</span></li>
+          </ul>
+        </article>
+        <article class="card" data-grade="5">
+          <header><span class="code">E</span><span class="grade">小五 · P5</span></header>
+          <h4><span class="zh">認識人類學習與機器學習的分別</span><span class="en">Know how human learning differs from machine learning</span></h4>
+          <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
+          <ul class="acts">
+            <li><span class="zh">承接「訓練」人工智能活動，學生討論自己的學習過程與機器學習的分別。</span><span class="en">Following the training activity, students discuss how their own learning differs from machine learning.</span></li>
+            <li><span class="zh">教師引導學生認識兩者的分別：機器按指示「學習」數據，較難應對「學習」以外的新情況；人類按動機來學習（如好奇心、求知慾），還會結合情感和道德判斷。</span><span class="en">A machine “learns” the data it is given and copes less well with new situations outside that. People learn from motives such as curiosity and the wish to know, and they also bring in feelings and moral judgement.</span></li>
+          </ul>
+        </article>
+      </div>
+    </div>
+
+    <div class="topic" id="topic-f">
+      <h3><span class="code">F</span><span class="zh">識別與生成</span><span class="en">Recognition and generation</span></h3>
+      <div class="cards">
+        <article class="card" data-grade="4">
+          <header><span class="code">F</span><span class="grade">小四 · P4</span></header>
+          <h4><span class="zh">嘗試辨識人工智能生成的圖像、音頻和視像</span><span class="en">Try to recognise AI-generated images, audio, and video</span></h4>
+          <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
+          <ul class="acts">
+            <li>
+              <span class="zh">教師準備一些圖像，請學生觀察和討論圖像是否由人工智能生成。教師需按學習目標適切選擇圖像：</span>
+              <span class="en">The teacher prepares images and asks students whether AI generated them. The images should fit the learning goal:</span>
+              <ul>
+                <li><span class="zh">讓學生認識辨別人工智能生成圖像的方法，如細節異常、背景不配合、場景不合理。</span><span class="en">Students learn signs of an AI-generated image, such as odd details, a background that does not fit, or a scene that does not make sense.</span></li>
+                <li><span class="zh">讓學生意識到人工智能可以生成仿真度很高的圖像，一般人難以分辨，從而明白對網上的多媒體內容要保持質疑。</span><span class="en">Students realise AI can generate very realistic images that most people cannot tell apart, so they should keep questioning multimedia content online.</span></li>
+              </ul>
+            </li>
+            <li><span class="zh">教師可同時引入虛假資訊和深偽的討論。除圖像外，類同活動可以用在音頻和視像。</span><span class="en">The teacher may also open a discussion of false information and deepfakes. The same kind of activity can be used with audio and video, not only images.</span></li>
+          </ul>
+        </article>
+        <article class="card" data-grade="4">
+          <header><span class="code">F</span><span class="grade">小四 · P4</span></header>
+          <h4><span class="zh">運用人工智能識別圖像的內容</span><span class="en">Use AI to recognise what is in an image</span></h4>
+          <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
+          <ul class="acts">
+            <li><span class="zh">學生體驗圖像辨識工具（如以人工智能平台辨識圖像），測試和評估準確度，並討論影響準確度的成因。</span><span class="en">Students try an image-recognition tool, test and assess its accuracy, and discuss what affects that accuracy.</span></li>
+          </ul>
+        </article>
+        <article class="card" data-grade="5">
+          <header><span class="code">F</span><span class="grade">小五 · P5</span></header>
+          <h4><span class="zh">運用人工智能識別語音的內容</span><span class="en">Use AI to recognise what is said in speech</span></h4>
+          <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
+          <ul class="acts">
+            <li><span class="zh">學生體驗語音辨識工具（如以語音輸入文字），測試和評估準確度，並討論影響準確度的成因。</span><span class="en">Students try a speech-recognition tool, such as turning speech into text, test and assess its accuracy, and discuss what affects that accuracy.</span></li>
+          </ul>
+        </article>
+        <article class="card" data-grade="5">
+          <header><span class="code">F</span><span class="grade">小五 · P5</span></header>
+          <h4><span class="zh">認識人工智能識別圖像的基本概念</span><span class="en">Know the basic idea of how AI recognises images</span></h4>
+          <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
+          <ul class="acts">
+            <li><span class="zh">學生進行認人或認物遊戲，運用特徵識別人或物（如長頸、斑點 → 長頸鹿）。</span><span class="en">Students play a recognition game and use features to identify a person or an object. For example, a long neck and spots point to a giraffe.</span></li>
+            <li><span class="zh">教師簡介人工智能以物件特徵（如外形、顏色）進行識別。</span><span class="en">The teacher briefly explains that AI recognises objects by features such as shape and colour.</span></li>
+            <li><span class="zh">作為延伸，教師與學生探討人工智能如何通過文字、圖像、音頻等識別使用者的「情感」。</span><span class="en">As an extension, the teacher and students explore how AI may use text, images, audio, and so on to identify a user’s “emotions”.</span></li>
+          </ul>
+        </article>
+        <article class="card" data-grade="6">
+          <header><span class="code">F</span><span class="grade">小六 · P6</span></header>
+          <h4><span class="zh">認識人工智能生成內容的基本概念</span><span class="en">Know the basic idea of how AI generates content</span></h4>
+          <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
+          <ul class="acts">
+            <li><span class="zh">學生講述通過模仿而自我提升的學習經歷（如臨摹字帖習字、模仿新聞播報員的言語表達）。</span><span class="en">Students describe times they improved by copying a model, such as practising calligraphy from a copybook, or copying how a newsreader speaks.</span></li>
+            <li><span class="zh">教師簡介人工智能通過處理大量數據進行「學習」，以生成內容，包括文字、影像和程式碼。</span><span class="en">The teacher briefly explains that AI “learns” by processing large amounts of data so it can generate content, including text, images, and program code.</span></li>
+          </ul>
+        </article>
+        <article class="card" data-grade="6">
+          <header><span class="code">F</span><span class="grade">小六 · P6</span></header>
+          <h4><span class="zh">適切地選擇和採用生成結果</span><span class="en">Choose and adopt generated results in a fitting way</span></h4>
+          <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
+          <ul class="acts">
+            <li><span class="zh">教師引導學生建構評估生成內容的準則（如準確性、相關性）。（可包括各科的科本內容和要求。）</span><span class="en">The teacher helps students build criteria for judging generated content, such as accuracy and relevance. Subject content and requirements may be included.</span></li>
+            <li><span class="zh">學生按準則評估不同的生成內容，並說明選擇或採用該內容的理由。</span><span class="en">Students use the criteria to assess different results and explain why they would choose or adopt a piece of content.</span></li>
+          </ul>
+        </article>
+      </div>
+    </div>
+
+    <div class="topic" id="topic-g">
+      <h3><span class="code">G</span><span class="zh">人工智能的局限</span><span class="en">Limits of AI</span></h3>
+      <div class="cards">
+        <article class="card" data-grade="6">
+          <header><span class="code">G</span><span class="grade">小六 · P6</span></header>
+          <h4><span class="zh">明白人工智能有可能生成錯誤和偏差的結果或判斷</span><span class="en">Understand that AI may produce wrong or biased results or judgements</span></h4>
+          <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
+          <ul class="acts">
+            <li><span class="zh">教師從日常生活中的「偏見」或錯誤判斷出發，引導學生討論人工智能的偏見與公平。</span><span class="en">Starting from “bias” or wrong judgements in everyday life, the teacher leads a discussion of AI bias and fairness.</span></li>
+            <li><span class="zh">教師引導學生初步分析產生偏差的原因（如資料來源有限或不完整），並討論相關議題，如媒體與資訊素養、數據偏見、人工智能安全和人工智能幻覺。</span><span class="en">Students make a first analysis of why bias arises, for example when sources are limited or incomplete. They discuss media and information literacy, data bias, AI safety, and AI hallucination.</span></li>
+          </ul>
+        </article>
+        <article class="card" data-grade="6">
+          <header><span class="code">G</span><span class="grade">小六 · P6</span></header>
+          <h4><span class="zh">探討人類如何駕馭人工智能</span><span class="en">Explore how people can steer AI</span></h4>
+          <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
+          <ul class="acts">
+            <li><span class="zh">教師引導學生明白駕馭和管理人工智能的需要。</span><span class="en">The teacher helps students see why people need to steer and manage AI.</span></li>
+            <li>
+              <span class="zh">教師引導學生持守以人為本、科技向善的精神運用人工智能，包括以下原則：</span>
+              <span class="en">Students use AI in a human-centred way, with technology for good, including these principles:</span>
+              <ul>
+                <li><span class="zh">先思而後用，不要讓人工智能取代思考</span><span class="en">Think first, then use. Do not let AI replace thinking.</span></li>
+                <li><span class="zh">配置合適的設定，規範人工智能的使用</span><span class="en">Put suitable settings in place to govern how AI is used.</span></li>
+                <li><span class="zh">以合適的數據「訓練」人工智能</span><span class="en">“Train” AI with suitable data.</span></li>
+                <li><span class="zh">監察和檢查人工智能的判斷和生成結果</span><span class="en">Monitor and check AI judgements and generated results.</span></li>
+                <li><span class="zh">持守學術誠信</span><span class="en">Uphold academic integrity.</span></li>
+                <li><span class="zh">不要過度依賴人工智能</span><span class="en">Do not rely on AI too much.</span></li>
+                <li><span class="zh">負責任和符合道德地使用人工智能</span><span class="en">Use AI responsibly and ethically.</span></li>
+              </ul>
+            </li>
+          </ul>
+        </article>
+      </div>
+    </div>
+
+    <div class="topic" id="topic-h">
+      <h3><span class="code">H</span><span class="zh">善用人工智能</span><span class="en">Using AI well</span></h3>
+      <div class="cards">
+        <article class="card" data-grade="2">
+          <header><span class="code">H</span><span class="grade">小二 · P2</span></header>
+          <h4><span class="zh">認識過度依賴資訊科技和人工智能的不良影響</span><span class="en">Know the harm of relying too much on IT and AI</span></h4>
+          <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
+          <ul class="acts">
+            <li><span class="zh">教師通過情境故事，引導學生討論過度依賴人工智能可能出現的後果，如思考能力和創造力減弱、影響腦部發展。</span><span class="en">Through a situation story, students discuss possible results of relying on AI too much, such as weaker thinking and creativity, and effects on how the brain develops.</span></li>
+            <li><span class="zh">教師引用相關新聞報道或文章，提醒學生不要過度依賴人工智能。</span><span class="en">The teacher refers to news reports or articles and reminds students not to rely on AI too much.</span></li>
+          </ul>
+        </article>
+        <article class="card" data-grade="3">
+          <header><span class="code">H</span><span class="grade">小三 · P3</span></header>
+          <h4><span class="zh">建立避免依賴人工智能的意識</span><span class="en">Become aware of the need not to depend on AI</span></h4>
+          <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
+          <ul class="acts">
+            <li><span class="zh">教師以合適的情境引導學生建立這份意識。例如面對不懂的功課，應先溫習和回顧所學，才向師長提問。</span><span class="en">The teacher uses a fitting situation. For example, when students do not understand a piece of homework, they first revise what they have learned, and then ask a teacher or an elder.</span></li>
+            <li><span class="zh">教師引導學生明白學習過程比取得答案重要。</span><span class="en">The teacher helps students see that the process of learning matters more than getting the answer.</span></li>
+          </ul>
+        </article>
+        <article class="card" data-grade="3">
+          <header><span class="code">H</span><span class="grade">小三 · P3</span></header>
+          <h4><span class="zh">知道適合運用人工智能的情境</span><span class="en">Know when it is suitable to use AI</span></h4>
+          <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
+          <ul class="acts">
+            <li>
+              <span class="zh">教師通過不同情境，引導學生思考是否適合使用人工智能，例如：</span>
+              <span class="en">Through different situations, students consider whether AI is suitable. For example:</span>
+              <ul>
+                <li><span class="zh">適合用來幫助學習（如協助學習新知識、搜尋資料、提供初步創作靈感）。</span><span class="en">Suitable for helping learning: learning something new, searching for information, or getting a first spark of an idea.</span></li>
+                <li><span class="zh">不適合用來取代學習、違反學術誠信，或未經自己判斷便直接用人工智能做重要決定（如代做課業、作弊）。</span><span class="en">Not suitable for replacing learning, breaking academic integrity, or letting AI make an important decision before you have judged it yourself, such as doing your schoolwork for you or cheating.</span></li>
+              </ul>
+            </li>
+          </ul>
+        </article>
+        <article class="card" data-grade="4">
+          <header><span class="code">H</span><span class="grade">小四 · P4</span></header>
+          <h4><span class="zh">認識在運用人工智能時可做與不可做的行為</span><span class="en">Know what you may and may not do when using AI</span></h4>
+          <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
+          <ul class="acts">
+            <li><span class="zh">教師講解合乎道德地使用人工智能的守則（如不侵犯版權、不輸入自己或他人的個人資料），並通過情境分析正當和不當的使用行為。</span><span class="en">The teacher explains rules for using AI ethically, such as not infringing copyright and not entering your own or anyone else’s personal data, and uses situations to look at proper and improper use.</span></li>
+            <li><span class="zh">學生製作「人工智能使用守則」海報或其他多媒體成品，宣傳正確使用人工智能的訊息。</span><span class="en">Students make a poster of rules for using AI, or another multimedia piece, to spread the message of using AI properly.</span></li>
+          </ul>
+        </article>
+        <article class="card" data-grade="6">
+          <header><span class="code">H</span><span class="grade">小六 · P6</span></header>
+          <h4><span class="zh">明白人機協作的概念，包括如何運用人工智能推動自主學習</span><span class="en">Understand human–AI collaboration, including how AI can support self-directed learning</span></h4>
+          <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
+          <ul class="acts">
+            <li><span class="zh">教師引導學生運用人工智能協助查閱資料和整理重點。</span><span class="en">The teacher guides students to use AI to help look up information and organise key points.</span></li>
+            <li><span class="zh">學生嘗試在人工智能輔助下完成學習任務，並反思人工智能如何提升學習效能。例如：「過程中我學到了甚麼？」「如何利用科本知識建構提示詞和查證生成內容？」「人工智能在學習過程中幫助了甚麼？」</span><span class="en">Students complete a learning task with AI support and reflect on how it helped. For example: “What did I learn along the way?” “How did I use subject knowledge to build the prompt and check the result?” “What did AI actually help with?”</span></li>
+            <li><span class="zh">可配合其他科目應用人工智能的學習任務。目標集中於以人工智能輔助學習，而非取代學習和思考。</span><span class="en">This can be paired with tasks in other subjects. The aim is to use AI to support learning, not to replace learning and thinking.</span></li>
+          </ul>
+        </article>
+        <article class="card" data-grade="6">
+          <header><span class="code">H</span><span class="grade">小六 · P6</span></header>
+          <h4><span class="zh">運用人工智能設計和優化解決問題方案</span><span class="en">Use AI to design and improve a solution to a problem</span></h4>
+          <p class="label"><span class="zh">學與教活動建議</span> <span class="en">Suggested activities</span></p>
+          <ul class="acts">
+            <li><span class="zh">教師安排專題式學習活動，讓學生綜合應用人工智能、編程和其他科目的知識構思方案（如智能校園或智能家居方案）。</span><span class="en">The teacher arranges project-based learning. Students draw on AI, programming, and other subjects to design a solution, such as a smart campus or a smart home.</span></li>
+            <li><span class="zh">可結合 STEAM 教育和專題研習進行。</span><span class="en">This can be combined with STEAM education and project learning.</span></li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="by-grade">
+    <h2><span class="idx">07</span><span class="zh">各年級的人工智能學習課題</span><span class="en">AI topics by year level</span></h2>
+    <div class="pair lead">
+      <p class="zh">小學階段各年級的人工智能學習課題總結如下。</p>
+      <p class="en">The AI learning topics for each primary year are summarised below.</p>
+    </div>
+    <div class="years">
+      <article class="year" id="p2">
+        <h3><span class="zh">小二</span><span class="en">Primary 2</span></h3>
+        <ol>
+          <li><span class="tag">A</span><span class="zh">列舉生活中人工智能應用的例子</span><span class="en">Give examples of AI applications in everyday life</span></li>
+          <li><span class="tag">B</span><span class="zh">簡單認識「智能」的概念（學習和作出決定）</span><span class="en">Gain a simple idea of “intelligence” (learning and making decisions)</span></li>
+          <li><span class="tag">C</span><span class="zh">與人工智能系統進行簡單的「對話」，知道它能以文字、圖像和語音等形式作出回應</span><span class="en">Have a simple “conversation” with an AI and see that it can reply in text, images, speech, and other forms</span></li>
+          <li><span class="tag">H</span><span class="zh">認識過度依賴資訊科技和人工智能的不良影響</span><span class="en">Know the harm of relying too much on IT and AI</span></li>
+        </ol>
+      </article>
+      <article class="year" id="p3">
+        <h3><span class="zh">小三</span><span class="en">Primary 3</span></h3>
+        <ol>
+          <li><span class="tag">A</span><span class="zh">辨識非人工智能的資訊科技與人工智能的分別</span><span class="en">Tell non-AI information technology apart from AI</span></li>
+          <li><span class="tag">B</span><span class="zh">認識人工智能的基本能力和應用</span><span class="en">Know the basic abilities of AI and how they are used</span></li>
+          <li><span class="tag">C</span><span class="zh">知道人工智能可按要求生成音訊</span><span class="en">Know that AI can generate audio from a request</span></li>
+          <li><span class="tag">C</span><span class="zh">知道人工智能可按要求生成圖像</span><span class="en">Know that AI can generate an image from a request</span></li>
+          <li><span class="tag">H</span><span class="zh">建立避免依賴人工智能的意識</span><span class="en">Become aware of the need not to depend on AI</span></li>
+          <li><span class="tag">H</span><span class="zh">知道適合運用人工智能的情境</span><span class="en">Know when it is suitable to use AI</span></li>
+        </ol>
+      </article>
+      <article class="year" id="p4">
+        <h3><span class="zh">小四</span><span class="en">Primary 4</span></h3>
+        <ol>
+          <li><span class="tag">A</span><span class="zh">認識資訊科技和人工智能如何改善生活</span><span class="en">See how IT and AI can improve life</span></li>
+          <li><span class="tag">B</span><span class="zh">認識人工智能的演進，包括資訊和通訊科技的進步如何推動人工智能的發展</span><span class="en">Know how AI has developed, including how progress in information and communication technology has driven that development</span></li>
+          <li><span class="tag">D</span><span class="zh">理解並模仿簡單清晰的提示詞</span><span class="en">Understand simple, clear prompts, and follow their pattern</span></li>
+          <li><span class="tag">E</span><span class="zh">講述自己如何學習新知識和如何通過資料與經驗作出判斷，從而初步認識機器學習</span><span class="en">Describe how they learn and how they judge from information and experience, and so begin to understand machine learning</span></li>
+          <li><span class="tag">F</span><span class="zh">嘗試辨識人工智能生成的圖像、音頻和視像</span><span class="en">Try to recognise AI-generated images, audio, and video</span></li>
+          <li><span class="tag">F</span><span class="zh">運用人工智能識別圖像的內容</span><span class="en">Use AI to recognise what is in an image</span></li>
+          <li><span class="tag">H</span><span class="zh">認識在運用人工智能時可做與不可做的行為</span><span class="en">Know what you may and may not do when using AI</span></li>
+        </ol>
+      </article>
+      <article class="year" id="p5">
+        <h3><span class="zh">小五</span><span class="en">Primary 5</span></h3>
+        <ol>
+          <li><span class="tag">B</span><span class="zh">初步認識影響人工智能效能的三大要素：數據、算法和算力</span><span class="en">Begin to know the three factors that affect AI performance: data, algorithms, and computing power</span></li>
+          <li><span class="tag">B</span><span class="zh">認識人工智能如何收集數據</span><span class="en">Know how AI collects data</span></li>
+          <li><span class="tag">B</span><span class="zh">認識人工智能自動化</span><span class="en">Know about AI automation</span></li>
+          <li><span class="tag">D</span><span class="zh">撰寫符合基本結構的完整提示詞</span><span class="en">Write a complete prompt with a basic structure</span></li>
+          <li><span class="tag">E</span><span class="zh">運用數據「訓練」人工智能和測試其「訓練成果」</span><span class="en">Use data to “train” an AI and test what that “training” achieved</span></li>
+          <li><span class="tag">E</span><span class="zh">簡單分析數據如何影響人工智能「學習」</span><span class="en">Make a simple analysis of how data affects AI “learning”</span></li>
+          <li><span class="tag">E</span><span class="zh">認識人類學習與機器學習的分別</span><span class="en">Know how human learning differs from machine learning</span></li>
+          <li><span class="tag">F</span><span class="zh">運用人工智能識別語音的內容</span><span class="en">Use AI to recognise what is said in speech</span></li>
+          <li><span class="tag">F</span><span class="zh">認識人工智能識別圖像的基本概念</span><span class="en">Know the basic idea of how AI recognises images</span></li>
+        </ol>
+      </article>
+      <article class="year" id="p6">
+        <h3><span class="zh">小六</span><span class="en">Primary 6</span></h3>
+        <ol>
+          <li><span class="tag">D</span><span class="zh">自主編寫提示詞以完成任務</span><span class="en">Write prompts on their own to complete a task</span></li>
+          <li><span class="tag">F</span><span class="zh">認識人工智能生成內容的基本概念</span><span class="en">Know the basic idea of how AI generates content</span></li>
+          <li><span class="tag">F</span><span class="zh">適切地選擇和採用生成結果</span><span class="en">Choose and adopt generated results in a fitting way</span></li>
+          <li><span class="tag">G</span><span class="zh">明白人工智能有可能生成錯誤和偏差的結果或判斷</span><span class="en">Understand that AI may produce wrong or biased results or judgements</span></li>
+          <li><span class="tag">G</span><span class="zh">探討人類如何駕馭人工智能</span><span class="en">Explore how people can steer AI</span></li>
+          <li><span class="tag">H</span><span class="zh">明白人機協作的概念，包括如何運用人工智能推動自主學習</span><span class="en">Understand human–AI collaboration, including how AI can support self-directed learning</span></li>
+          <li><span class="tag">H</span><span class="zh">運用人工智能設計和優化解決問題方案</span><span class="en">Use AI to design and improve a solution to a problem</span></li>
+        </ol>
+      </article>
+    </div>
+  </section>
+
+  <section id="alignment">
+    <h2><span class="idx">08</span><span class="zh">學習課題與《中小學人工智能素養學習架構》的對照</span><span class="en">How these topics line up with the AI Literacy Learning Framework</span></h2>
+    <div class="pair lead">
+      <p class="zh">下表列出《中小學人工智能素養學習架構》與本文件建議的人工智能學習課題之間的對照。原文沒有寫上對應課題的欄位，以「—」表示。</p>
+      <p class="en">The table maps the AI Literacy Learning Framework for Primary and Secondary Schools to the topics suggested in this document. A dash means the source text does not name a matching topic in that cell.</p>
+    </div>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th><span class="zh">學習階段</span><span class="en">Stage</span></th>
+            <th><span class="zh">重點</span><span class="en">Focus</span></th>
+            <th><span class="zh">學習重點內容</span><span class="en">Learning-focus content</span></th>
+            <th><span class="zh">本文件建議的課題</span><span class="en">Topics in this document</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="stage" rowspan="6"><span class="zh">學習階段一</span><span class="en">Learning Stage 1</span><span class="zh">接觸和體驗人工智能</span><span class="en">Encounter and experience AI</span></td>
+            <td class="focus" rowspan="3"><span class="zh">學習人工智能和應用人工智能</span><span class="en">Learning AI and applying AI</span></td>
+            <td><span class="zh">知道日常生活中人工智能的應用</span><span class="en">Know AI applications in everyday life</span></td>
+            <td><ul class="map-list">
+              <li><span class="tag">A · 小二 P2</span><span class="zh">列舉生活中人工智能應用的例子</span><span class="en">Give examples of AI applications in everyday life</span></li>
+              <li><span class="tag">A · 小三 P3</span><span class="zh">辨識非人工智能的資訊科技與人工智能的分別</span><span class="en">Tell non-AI information technology apart from AI</span></li>
+            </ul></td>
+          </tr>
+          <tr>
+            <td><span class="zh">透過「不插電」活動初步理解計算思維（如分類、排序、找規律）</span><span class="en">Begin to understand computational thinking through unplugged activities, such as classifying, sorting, and finding patterns</span></td>
+            <td><p class="note"><span class="zh">培養學生基本的計算思維，有助他們將抽象概念具象化（概念啟蒙），認識人工智能如何處理數據與「學習」。</span><span class="en">This builds basic computational thinking. It helps students make abstract ideas concrete, as an early introduction to the concepts, and see how AI processes data and “learns”.</span></p></td>
+          </tr>
+          <tr>
+            <td><span class="zh">知道人工智能可生成文字、圖像、影片、音訊等內容</span><span class="en">Know that AI can generate text, images, video, audio, and other content</span></td>
+            <td><ul class="map-list">
+              <li><span class="tag">B · 小二 P2</span><span class="zh">簡單認識「智能」的概念（學習和作出決定）</span><span class="en">Gain a simple idea of “intelligence”</span></li>
+              <li><span class="tag">B · 小三 P3</span><span class="zh">認識人工智能的基本能力和應用</span><span class="en">Know the basic abilities of AI and how they are used</span></li>
+              <li><span class="tag">C · 小二 P2</span><span class="zh">與人工智能系統進行簡單的「對話」，知道它能以文字、圖像和語音等形式作出回應</span><span class="en">Have a simple “conversation” and see replies in text, images, speech, and other forms</span></li>
+              <li><span class="tag">C · 小三 P3</span><span class="zh">知道人工智能可按要求生成圖像；知道人工智能可按要求生成音訊</span><span class="en">Know that AI can generate an image, and audio, from a request</span></li>
+            </ul></td>
+          </tr>
+          <tr>
+            <td class="focus" rowspan="3"><span class="zh">慎用人工智能的態度</span><span class="en">An attitude of using AI with care</span></td>
+            <td><span class="zh">遵守使用規則及建立良好和健康的使用習慣</span><span class="en">Follow rules of use and build good, healthy habits</span></td>
+            <td><ul class="map-list">
+              <li><span class="tag">H · 小二 P2</span><span class="zh">認識過度依賴資訊科技和人工智能的不良影響</span><span class="en">Know the harm of relying too much on IT and AI</span></li>
+              <li><span class="tag">H · 小三 P3</span><span class="zh">建立避免依賴人工智能的意識</span><span class="en">Become aware of the need not to depend on AI</span></li>
+              <li><span class="tag">H · 小三 P3</span><span class="zh">知道適合運用人工智能的情境</span><span class="en">Know when it is suitable to use AI</span></li>
+            </ul></td>
+          </tr>
+          <tr>
+            <td><span class="zh">知道人工智能生成內容會有不準確或不實的情況，不宜輕信</span><span class="en">Know that AI-generated content can be inaccurate or untrue, and should not be trusted lightly</span></td>
+            <td class="empty">—</td>
+          </tr>
+          <tr>
+            <td><span class="zh">負責任地保護個人資料（私隱）、注意對其他人的影響、重視版權</span><span class="en">Protect personal data and privacy responsibly, consider the effect on other people, and respect copyright</span></td>
+            <td class="empty">—</td>
+          </tr>
+
+          <tr>
+            <td class="stage" rowspan="17"><span class="zh">學習階段二</span><span class="en">Learning Stage 2</span><span class="zh">與人工智能互動</span><span class="en">Interact with AI</span></td>
+            <td class="focus" rowspan="5"><span class="zh">學習人工智能</span><span class="en">Learning AI</span></td>
+            <td><span class="zh">認識基本資訊處理的概念和應用，如「輸入—處理—輸出」、多媒體數據類型（文字、圖像、聲音等），以及日常生活中數據收集和使用的途徑</span><span class="en">Know basic information processing and its use, such as input–process–output, multimedia data types (text, images, sound, and so on), and how data is collected and used in everyday life</span></td>
+            <td><ul class="map-list"><li><span class="tag">B · 小五 P5</span><span class="zh">認識人工智能如何收集數據</span><span class="en">Know how AI collects data</span></li></ul></td>
+          </tr>
+          <tr>
+            <td><span class="zh">認識電腦系統的基本部件，包括處理器、儲存部件和輸入／輸出部件，並了解它們與人工智能系統的關係（如處理器與算力、感應器與數據收集）</span><span class="en">Know the basic parts of a computer system, including the processor, storage, and input/output devices, and how they relate to an AI system (the processor and computing power; sensors and data collection)</span></td>
+            <td><ul class="map-list"><li><span class="tag">B · 小四 P4</span><span class="zh">認識人工智能的演進，包括資訊和通訊科技的進步如何推動人工智能的發展</span><span class="en">Know how AI has developed, and how progress in information and communication technology has driven it</span></li></ul></td>
+          </tr>
+          <tr>
+            <td><span class="zh">了解及應用計算思維的基礎概念，以編寫程式來處理輸入、輸出和操控實物</span><span class="en">Understand and apply basic computational thinking, and write programs that handle input and output and control physical objects</span></td>
+            <td><p class="note"><span class="zh">學生進一步理解計算思維與編程的應用，有助他們掌握人工智能如何接收數據、作出判斷，以及輸出結果或控制實物。</span><span class="en">Students go further into computational thinking and programming. This helps them grasp how AI receives data, makes a judgement, and outputs a result or controls a physical object.</span></p></td>
+          </tr>
+          <tr>
+            <td><span class="zh">了解人工智能和人類工作模式的異同，而人工智能並非萬能</span><span class="en">Understand how AI and human ways of working are alike and different, and that AI is not all-powerful</span></td>
+            <td><ul class="map-list">
+              <li><span class="tag">E · 小四 P4</span><span class="zh">講述自己如何學習新知識和如何透過資料與經驗作出判斷，從而初步認識機器學習</span><span class="en">Describe how they learn and judge, and so begin to understand machine learning</span></li>
+              <li><span class="tag">E · 小五 P5</span><span class="zh">認識人類學習與機器學習的分別</span><span class="en">Know how human learning differs from machine learning</span></li>
+            </ul></td>
+          </tr>
+          <tr>
+            <td><span class="zh">初步認識影響人工智能效能的三大要素，包括數據、算法和算力</span><span class="en">Begin to know the three factors that affect AI performance: data, algorithms, and computing power</span></td>
+            <td><ul class="map-list"><li><span class="tag">B · 小五 P5</span><span class="zh">初步認識數據、算法和算力這三大要素</span><span class="en">Begin to know the three factors: data, algorithms, and computing power</span></li></ul></td>
+          </tr>
+          <tr>
+            <td class="focus" rowspan="5"><span class="zh">應用人工智能</span><span class="en">Applying AI</span></td>
+            <td><span class="zh">初步認識人工智能的發展和應用</span><span class="en">Begin to know how AI has developed and how it is applied</span></td>
+            <td><ul class="map-list">
+              <li><span class="tag">A · 小四 P4</span><span class="zh">認識資訊科技和人工智能如何改善生活</span><span class="en">See how IT and AI can improve life</span></li>
+              <li><span class="tag">B · 小五 P5</span><span class="zh">認識人工智能自動化</span><span class="en">Know about AI automation</span></li>
+            </ul></td>
+          </tr>
+          <tr>
+            <td><span class="zh">操作與學習活動相關的人工智能工具，如運用提示詞</span><span class="en">Operate AI tools used in learning activities, such as by using prompts</span></td>
+            <td><ul class="map-list">
+              <li><span class="tag">D · 小四 P4</span><span class="zh">理解並模仿簡單清晰的提示詞</span><span class="en">Understand simple, clear prompts, and follow their pattern</span></li>
+              <li><span class="tag">D · 小五 P5</span><span class="zh">撰寫符合基本結構的完整提示詞</span><span class="en">Write a complete prompt with a basic structure</span></li>
+              <li><span class="tag">D · 小六 P6</span><span class="zh">自主編寫提示詞以完成任務</span><span class="en">Write prompts on their own to complete a task</span></li>
+            </ul></td>
+          </tr>
+          <tr>
+            <td><span class="zh">運用人工智能協助解難，如就問題理解和解決方案提供回饋，或共同構思解決問題的創新意念</span><span class="en">Use AI to help solve problems, for example by giving feedback on how a problem is understood and on a solution, or by thinking up creative ideas together</span></td>
+            <td><ul class="map-list"><li><span class="tag">H · 小六 P6</span><span class="zh">運用人工智能設計和優化解決問題方案</span><span class="en">Use AI to design and improve a solution</span></li></ul></td>
+          </tr>
+          <tr>
+            <td><span class="zh">評估和事實查核人工智能的回應和生成內容</span><span class="en">Assess and fact-check AI responses and generated content</span></td>
+            <td><ul class="map-list"><li><span class="tag">F · 小六 P6</span><span class="zh">適切地選擇和採用生成結果</span><span class="en">Choose and adopt generated results in a fitting way</span></li></ul></td>
+          </tr>
+          <tr>
+            <td><span class="zh">體驗與認識人工智能的能力（如識別、生成）與限制（如欠缺道德意識）</span><span class="en">Experience and understand what AI can do (such as recognition and generation) and its limits (such as a lack of moral awareness)</span></td>
+            <td><ul class="map-list">
+              <li><span class="tag">F · 小四 P4</span><span class="zh">嘗試辨識人工智能生成的圖像、音頻和視像</span><span class="en">Try to recognise AI-generated images, audio, and video</span></li>
+              <li><span class="tag">F · 小四 P4</span><span class="zh">運用人工智能識別圖像的內容</span><span class="en">Use AI to recognise what is in an image</span></li>
+              <li><span class="tag">F · 小五 P5</span><span class="zh">運用人工智能識別語音的內容</span><span class="en">Use AI to recognise speech</span></li>
+              <li><span class="tag">F · 小五 P5</span><span class="zh">認識人工智能識別圖像的基本概念</span><span class="en">Know the basic idea of how AI recognises images</span></li>
+              <li><span class="tag">F · 小六 P6</span><span class="zh">認識人工智能生成內容的基本概念</span><span class="en">Know the basic idea of how AI generates content</span></li>
+              <li><span class="tag">G · 小六 P6</span><span class="zh">明白人工智能有可能生成錯誤和偏差的結果或判斷</span><span class="en">Understand that AI may produce wrong or biased results or judgements</span></li>
+            </ul></td>
+          </tr>
+          <tr>
+            <td class="focus" rowspan="2"><span class="zh">應用人工智能（數理科技學習領域／STEAM 教育）</span><span class="en">Applying AI (mathematics, science and technology learning area / STEAM education)</span></td>
+            <td><span class="zh">以編程控制實物與環境互動</span><span class="en">Use programming to control physical objects and interact with the environment</span></td>
+            <td><p class="note"><span class="zh">學生理解人工智能如何感知環境、處理數據和作出回應，從而認識人工智能在真實情境中的應用。</span><span class="en">Students understand how AI senses an environment, processes data, and responds, and so see how AI is used in real situations.</span></p></td>
+          </tr>
+          <tr>
+            <td><span class="zh">進行簡單的數據訓練</span><span class="en">Carry out simple data training</span></td>
+            <td><ul class="map-list"><li><span class="tag">E · 小六 P6</span><span class="zh">運用數據「訓練」人工智能和測試其「訓練成果」</span><span class="en">Use data to “train” an AI and test what that “training” achieved</span></li></ul></td>
+          </tr>
+          <tr>
+            <td class="focus" rowspan="5"><span class="zh">慎用人工智能的態度</span><span class="en">An attitude of using AI with care</span></td>
+            <td><span class="zh">辨別資訊真偽（包括深偽技術、虛假資訊）</span><span class="en">Tell true information from false, including deepfakes and false information</span></td>
+            <td><ul class="map-list"><li><span class="tag">G · 小六 P6</span><span class="zh">探討人類如何駕馭人工智能</span><span class="en">Explore how people can steer AI</span></li></ul></td>
+          </tr>
+          <tr>
+            <td><span class="zh">保護自己及他人的資料（私隱）</span><span class="en">Protect your own and other people’s data (privacy)</span></td>
+            <td><ul class="map-list">
+              <li><span class="tag">H · 小四 P4</span><span class="zh">認識在運用人工智能時可做與不可做的行為</span><span class="en">Know what you may and may not do when using AI</span></li>
+              <li><span class="tag">H · 小六 P6</span><span class="zh">明白人機協作的概念，包括如何運用人工智能推動自主學習</span><span class="en">Understand human–AI collaboration, including support for self-directed learning</span></li>
+            </ul></td>
+          </tr>
+          <tr>
+            <td><span class="zh">保護知識產權</span><span class="en">Protect intellectual property</span></td>
+            <td class="empty">—</td>
+          </tr>
+          <tr>
+            <td><span class="zh">運用人工智能時要重視學術誠信</span><span class="en">Take academic integrity seriously when using AI</span></td>
+            <td class="empty">—</td>
+          </tr>
+          <tr>
+            <td><span class="zh">認識在運用人工智能時可做與不可做的行為</span><span class="en">Know what you may and may not do when using AI</span></td>
+            <td class="empty">—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <p><span class="zh">小學資訊與創新科技課程框架 · 人工智能部分（試行版） · 教師參考</span><span class="en">Primary Information and Innovation Technology Curriculum Framework · AI section (trial version) · teacher reference</span></p>
+  <p><a href="#top"><span class="zh">回到頁首</span><span class="en">Back to top</span></a></p>
+</footer>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var viewButtons = document.querySelectorAll("[data-view]");
+  var gradeButtons = document.querySelectorAll("[data-grade]");
+
+  function setView(view) {
+    root.dataset.view = view;
+    viewButtons.forEach(function (b) {
+      b.setAttribute("aria-pressed", b.dataset.view === view ? "true" : "false");
+    });
+    try { localStorage.setItem("iit-ai-view", view); } catch (e) {}
+  }
+
+  function setGrade(grade) {
+    document.querySelectorAll(".card").forEach(function (card) {
+      card.hidden = grade !== "all" && card.dataset.grade !== grade;
+    });
+    document.querySelectorAll(".topic").forEach(function (topic) {
+      topic.hidden = !topic.querySelector(".card:not([hidden])");
+    });
+    gradeButtons.forEach(function (b) {
+      b.setAttribute("aria-pressed", b.dataset.grade === grade ? "true" : "false");
+    });
+  }
+
+  var saved = null;
+  try { saved = localStorage.getItem("iit-ai-view"); } catch (e) {}
+  setView(saved || "both");
+  viewButtons.forEach(function (b) {
+    b.addEventListener("click", function () { setView(b.dataset.view); });
+  });
+  gradeButtons.forEach(function (b) {
+    b.addEventListener("click", function () { setGrade(b.dataset.grade); });
+  });
+})();
+</script>
+</body>
+</html>
